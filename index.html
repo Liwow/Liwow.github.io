@@ -48,16 +48,6 @@
     <div id="map"></div>
 
     <div id="buttons">
-      <button class="button" id="zoomIn">
-        <i class="fas fa-search-plus"></i>
-      </button>
-      <button class="button" id="zoomOut">
-        <i class="fas fa-search-minus"></i>
-      </button>
-      <button class="button" id="satellite">Satellite</button>
-      <button class="button" id="roadmap">Roadmap</button>
-      <button class="button" id="hybrid">Hybrid</button>
-      <button class="button" id="tilt">Tilt</button>
 
       <button class="button" id="myPos">My position</button>
 
@@ -81,62 +71,9 @@
           center: { lat: 59.3498092, lng: 18.0684758 },
           zoom: 16,
           mapTypeId: "roadmap",
-          disableDefaultUI: true,
           tilt: 0
           //tilt: 45
         });
-
-
-        google.maps.event.addDomListener(
-          document.getElementById("zoomIn"),
-          "click",
-          function() {
-            map.setZoom(map.getZoom() + 1);
-          }
-        );
-
-        google.maps.event.addDomListener(
-          document.getElementById("zoomOut"),
-          "click",
-          function() {
-            map.setZoom(map.getZoom() - 1);
-          }
-        );
-
-        google.maps.event.addDomListener(
-          document.getElementById("satellite"),
-          "click",
-          function() {
-            map.setMapTypeId("satellite");
-          }
-        );
-
-        google.maps.event.addDomListener(
-          document.getElementById("roadmap"),
-          "click",
-          function() {
-            map.setMapTypeId("roadmap");
-          }
-        );
-
-        google.maps.event.addDomListener(
-          document.getElementById("hybrid"),
-          "click",
-          function() {
-            map.setMapTypeId("hybrid");
-          }
-        );
-        google.maps.event.addDomListener(
-          document.getElementById("tilt"),
-          "click",
-          function() {
-            if (map.getTilt() == 0) {
-              map.setTilt(45);
-            } else {
-              map.setTilt(0);
-            }
-          }
-        );
 
         function getPos(position) {
           map.setCenter({
@@ -177,18 +114,8 @@
           animation: google.maps.Animation.DROP,
           position: { lat: 59.327, lng: 18.067 }
         });
-        marker1.addListener("click", toggleBounce1);
 
-        var icon =
-          "https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/128/Map-Marker-Ball-Right-Pink.png";
-        marker2 = new google.maps.Marker({
-          map: map,
-          draggable: false,
-          animation: google.maps.Animation.DROP,
-          position: { lat: 59.3498092, lng: 18.0684758 },
-          icon: icon
-        }); //wubuubuu
-        marker2.addListener("click", toggleBounce2);
+        marker1.addListener("click", toggleBounce1);
       }
     </script>
 
