@@ -1,6 +1,6 @@
 # Study@
 
-## Project Description: 
+**Project Description: 
 
 Our project idea is an app similar to google maps and karma that we’ve named Study@, with the purpose of providing suggestions for good places to study (such as cafeterias and libraries). So far we have planned for the app to have ratings for Wifi-speed, power outlet accessibility, sound levels, space and price range of products sold at the location. Users will be able to leave ratings and reviews of the places and we also plan to have a checklist so the user can see quickly if the place has wifi and student discounts.
 
