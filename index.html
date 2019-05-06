@@ -117,12 +117,30 @@
 
         marker1 = new google.maps.Marker({
           map: map,
-          draggable: true,
+          draggable: false,
           animation: google.maps.Animation.DROP,
           position: { lat: 59.327, lng: 18.067 }
         });
 
+        markerChatalk = new google.maps.Marker({
+          map: map,
+          draggable: false,
+          animation: google.maps.Animation.DROP,
+          position: { lat: 59.3403152, lng: 18.0558005 }
+        });
+
+        markerKaferang = new google.maps.Marker({
+          map: map,
+          draggable: false,
+          animation: google.maps.Animation.DROP,
+          position: { lat: 59.3339689, lng: 18.0579879 }
+        });
+
+
+
         marker1.addListener("click", toggleBounce);
+        markerChatalk.addListener("click", toggleBounce);
+        markerKaferang.addListener("click", toggleBounce);
       }
     </script>
     
