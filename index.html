@@ -59,10 +59,6 @@
       <button class="button" id="hybrid">Hybrid</button>
       <button class="button" id="tilt">Tilt</button>
 
-      <button class="button" id="taiwan">Center Taiwan Marker</button>
-      <button class="button" id="france">Center France Marker</button>
-      <button class="button" id="japan">Center Japan Marker</button>
-
       <button class="button" id="myPos">My position</button>
 
       <button class="button" id="goFS">Go fullscreen</button>
@@ -90,32 +86,6 @@
           //tilt: 45
         });
 
-        var taipei = { lat: 25.0886, lng: 121.5244 };
-        google.maps.event.addDomListener(
-          document.getElementById("taiwan"),
-          "click",
-          function() {
-            map.setCenter(taipei);
-          }
-        );
-
-        var paris = { lat: 48.860294, lng: 2.338629 };
-        google.maps.event.addDomListener(
-          document.getElementById("france"),
-          "click",
-          function() {
-            map.setCenter(paris);
-          }
-        );
-
-        var tokyo = { lat: 35.7288, lng: 139.7192 };
-        google.maps.event.addDomListener(
-          document.getElementById("japan"),
-          "click",
-          function() {
-            map.setCenter(tokyo);
-          }
-        );
 
         google.maps.event.addDomListener(
           document.getElementById("zoomIn"),
@@ -201,17 +171,6 @@
           }
         );
 
-        /*//var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-
-        google.maps.event.addListener(map, 'click', function( event ){
-          var myLatlng = new google.maps.LatLng(event.latLng.lat(),event.latLng.lng());
-          //alert( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() ); 
-          var marker = new google.maps.Marker({
-              position: myLatlng,
-              title:"Hello World!"
-          });
-        });*/
-
         marker1 = new google.maps.Marker({
           map: map,
           draggable: true,
@@ -230,100 +189,6 @@
           icon: icon
         }); //wubuubuu
         marker2.addListener("click", toggleBounce2);
-
-        var marketString =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          "</div>" +
-          '<h1 id="firstHeading" class="firstHeading">Shilin Night Market</h1>' +
-          '<div id="bodyContent">' +
-          "<p><b>Shilin Night Market</b> is one of many night markets in <b>Taiwan, Taipei</b>. " +
-          "The market offers a variety of food and entertainment, including " +
-          "fried ice cream and funfair games. Celina can be found here occasionally, eating as much food as she possibly can," +
-          " regardless of the cost.</p>" +
-          "</div>" +
-          "</div>";
-
-        var shopString =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          "</div>" +
-          '<h1 id="firstHeading" class="firstHeading">Musée du Louvre</h1>' +
-          '<div id="bodyContent">' +
-          "<p><b>Musée du Louvre</b> is Elias favroite place to practice the social media phenomenon <b> planking</b>. " +
-          "It is also a very nice museum, home to the <b> Mona Lisa</b>.</p>" +
-          "</div>" +
-          "</div>";
-
-        var centerString =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          "</div>" +
-          '<h1 id="firstHeading" class="firstHeading">Pokémon Center Mega Tokyo</h1>' +
-          '<div id="bodyContent">' +
-          "<p><b>Pokémon Center Mega Tokyo</b> is a Pokémon-exclusive retail store owned and run by The Pokemon Company. Originally opening in Tokyo in 1998, the Pokémon Center has expanded into opening additional stores in Osaka, Nagoya, Fukuoka, Yokohama, and Sapporo. This is also the home of Ronya who can be heard scuttering about the store at night." +
-          "</div>" +
-          "</div>";
-
-        var infowindow = new google.maps.InfoWindow({
-          content: marketString
-        });
-
-        var infowindow2 = new google.maps.InfoWindow({
-          content: shopString
-        });
-
-        var infowindow3 = new google.maps.InfoWindow({
-          content: centerString
-        });
-
-        var celinaz = new google.maps.Marker({
-          position: { lat: 25.0886, lng: 121.5244 },
-          map: map,
-          title: "Shilin Night Market"
-        });
-        celinaz.addListener("click", function() {
-          infowindow.open(map, celinaz);
-        });
-
-        var eliasak = new google.maps.Marker({
-          position: { lat: 48.860294, lng: 2.338629 },
-          map: map,
-          title: "Musée du Louvre"
-        });
-        eliasak.addListener("click", function() {
-          infowindow2.open(map, eliasak);
-        });
-
-        var ronyak = new google.maps.Marker({
-          position: { lat: 35.7288, lng: 139.7192 },
-          map: map,
-          title: "Pokemon Center Mega Tokyo"
-        });
-        ronyak.addListener("click", function() {
-          infowindow3.open(map, ronyak);
-        });
-
-        function toggleBounce1() {
-          if (marker1.getAnimation() !== null) {
-            marker1.setAnimation(null);
-          } else {
-            marker1.setAnimation(google.maps.Animation.BOUNCE);
-          }
-        }
-        function toggleBounce2() {
-          if (marker2.getAnimation() !== null) {
-            marker2.setAnimation(null);
-          } else {
-            marker2.setAnimation(google.maps.Animation.BOUNCE);
-          }
-        }
-
-        marker1.setMap(map);
-        marker2.setMap(map);
-        celinaz.setMap(map);
-        eliasak.setMap(map);
-        ronyak.setMap(map);
       }
     </script>
 
