@@ -53,13 +53,6 @@
   </head>
   <body>
     <div id="map"></div>
-
-    <div id="buttons">
-
-      <button class="button" id="myPos">My position</button>
-
-      <button class="button" id="goFS">Go fullscreen</button>
-    </div>
     <script>
       var goFS = document.getElementById("goFS");
       goFS.addEventListener(
@@ -126,26 +119,21 @@
       }
     </script>
     
-
-      <ons-card
-        onclick="fn.pushPage({'id': 'dmgHeroes.html', 'title': 'DmgHeroes'})"
-      >
+      <ons-card>
         <div class="title">Cafe 1</div>
         <div class="content">
           Distance
         </div>
       </ons-card>
-      <ons-card
-        onclick="fn.pushPage({'id': 'tankHeroes.html', 'title': 'TankHeroes'})"
-      >
+
+      <ons-card>
         <div class="title">Cafe 2</div>
         <div class="content">
           Distance
         </div>
       </ons-card>
-      <ons-card
-        onclick="fn.pushPage({'id': 'supHeroes.html', 'title': 'SupHeroes'})"
-      >
+
+      <ons-card>
         <div class="title">Cafe 3</div>
         <div class="content">
           Distance
@@ -170,11 +158,6 @@
           font-size: 20px;
         }
       </style>
-    </ons-page>
-  </ons-navigator>
-
-</body>
-</html>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?callback=initMap"
