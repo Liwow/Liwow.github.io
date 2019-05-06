@@ -16,10 +16,13 @@ We expect to start working on the project alongside the final laboration, so our
 
 ## Names, roles:
 
-Our group name is Cinos, with the following members. Note that the roles are only a starting point, as we expect to take on more roles during the process of the project. 
-Elias Åkerlund, programmer 
-Ronya Budak, programmer and graphic designer
-Celina Zander, programmer
+Our group name is Cinos, with the following members. Note that the roles are only a starting point, as we expect to take on more roles during the process of the project.
+
+- Elias Åkerlund, programmer 
+
+- Ronya Budak, programmer and graphic designer
+
+- Celina Zander, programmer
 
 ## Expected outcome:
 
