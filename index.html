@@ -3,6 +3,13 @@
   <head>
     <link rel="icon" href="../yahoi.png" />
     <title>Simple Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/onsenui/css/onsen-css-components.min.css"
+    />
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="functions.js"></script>
     <meta name="viewport" content="initial-scale=1.0" />
     <meta charset="utf-8" />
     <link
@@ -115,9 +122,59 @@
           position: { lat: 59.327, lng: 18.067 }
         });
 
-        marker1.addListener("click", toggleBounce1);
+        marker1.addListener("click", toggleBounce);
       }
     </script>
+    
+
+      <ons-card
+        onclick="fn.pushPage({'id': 'dmgHeroes.html', 'title': 'DmgHeroes'})"
+      >
+        <div class="title">Cafe 1</div>
+        <div class="content">
+          Distance
+        </div>
+      </ons-card>
+      <ons-card
+        onclick="fn.pushPage({'id': 'tankHeroes.html', 'title': 'TankHeroes'})"
+      >
+        <div class="title">Cafe 2</div>
+        <div class="content">
+          Distance
+        </div>
+      </ons-card>
+      <ons-card
+        onclick="fn.pushPage({'id': 'supHeroes.html', 'title': 'SupHeroes'})"
+      >
+        <div class="title">Cafe 3</div>
+        <div class="content">
+          Distance
+        </div>
+      </ons-card>
+
+      <style>
+        .hero {
+          float: right;
+        }
+        .intro {
+          text-align: center;
+          padding: 0 20px;
+          margin-top: 40px;
+        }
+        ons-card {
+          cursor: pointer;
+          color: #333;
+        }
+        .card__title,
+        .card--material__title {
+          font-size: 20px;
+        }
+      </style>
+    </ons-page>
+  </ons-navigator>
+
+</body>
+</html>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?callback=initMap"
