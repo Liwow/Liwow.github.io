@@ -54,6 +54,71 @@
               //tilt: 45
             });
 
+          var marker1 = new google.maps.Marker({
+          position: { lat: 59.3434, lng: 18.0548 },
+          map: map,
+          title: "Stadsbiblioteket"
+          });
+          marker1.addListener("click", function() {
+          infowindow.open(map, marker1);
+          });
+
+          var marker2 = new google.maps.Marker({
+          position: { lat: 59.340370, lng: 18.057978 },
+          map: map,
+          title: "Cha Talk"
+          });
+          marker2.addListener("click", function() {
+          infowindow2.open(map, marker2);
+          });
+
+          var marker3 = new google.maps.Marker({
+          position: { lat: 59.347210, lng: 18.070866 },
+          map: map,
+          title: "Nymble"
+          });
+          marker3.addListener("click", function() {
+          infowindow3.open(map, marker3);
+          });
+
+          var marker1String =
+          '<div id="content">' +
+          '<div id="siteNotice">' +
+          "</div>" +
+          '<div id="bodyContent">' +
+          "<p><b>Stadsbiblioteket</b></p>" +
+          "</div>";
+
+          var marker2String =
+          '<div id="content">' +
+          '<div id="siteNotice">' +
+          "</div>" +
+          '<div id="bodyContent">' +
+          "<p><b>Cha Talk</b></p>" +
+          "</div>";
+
+          var marker3String =
+          '<div id="content">' +
+          '<div id="siteNotice">' +
+          "</div>" +
+          '<div id="bodyContent">' +
+          "<p><b>Nymble</b></p>" +
+          "</div>";
+
+          var infowindow = new google.maps.InfoWindow({
+          content: marker1String
+          });
+          var infowindow2 = new google.maps.InfoWindow({
+          content: marker2String
+          });
+          var infowindow3 = new google.maps.InfoWindow({
+          content: marker3String
+          });
+
+            marker1.setMap(map);
+            marker2.setMap(map);
+            marker3.setMap(map);
+
             function CenterControl(controlDiv, map) {
               // Set CSS for the control border.
               var controlUI = document.createElement("div");
