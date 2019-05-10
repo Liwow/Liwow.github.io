@@ -1,4 +1,5 @@
 var map;
+var icon = "marker.png";
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -12,7 +13,8 @@ function initMap() {
   var marker1 = new google.maps.Marker({
     position: { lat: 59.3434, lng: 18.0548 },
     map: map,
-    title: "Stadsbiblioteket"
+    title: "Stadsbiblioteket",
+    icon: icon
   });
   marker1.addListener("click", function() {
     infowindow.open(map, marker1);
