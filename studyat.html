@@ -32,6 +32,10 @@
         margin: 0;
         padding: 0;
       }
+
+      #appTabbar {
+        position: fixed;
+      }
     </style>
   </head>
   <body>
@@ -119,27 +123,44 @@
             }
           }
         </script>
-        <ons-card
-          id="cardstyle1"
-          onclick="fn.pushPage({'id': 'cafe1.html', 'title': 'Cafe 1'})"
-        >
-          <div class="title">Cafe 1</div>
-          <div class="content">
-            Distance
-          </div>
-        </ons-card>
-        <ons-card id="cardstyle2">
-          <div class="title">Cafe 2</div>
-          <div class="content">
-            Distance
-          </div>
-        </ons-card>
-        <ons-card id="cardstyle3">
-          <div class="title">Cafe 3</div>
-          <div class="content">
-            Distance
-          </div>
-        </ons-card>
+        <div id="allCards">
+          <ons-card
+            id="cardstyle1"
+            onclick="fn.pushPage({'id': 'cafe1.html', 'title': 'Cafe 1'})"
+          >
+            <div class="title">Cafe 1</div>
+            <div class="content">
+              Distance
+            </div>
+          </ons-card>
+          <ons-card id="cardstyle2">
+            <div class="title">Cafe 2</div>
+            <div class="content">
+              Distance
+            </div>
+          </ons-card>
+          <ons-card id="cardstyle3">
+            <div class="title">Cafe 3</div>
+            <div class="content">
+              Distance
+            </div>
+          </ons-card>
+        </div>
+
+        <ons-tabbar swipeable id="appTabbar" position="bottom">
+          <ons-tab
+            label="Home"
+            icon="ion-home"
+            page="home.html"
+            active
+          ></ons-tab>
+          <ons-tab label="Forms" icon="ion-edit" page="forms.html"></ons-tab>
+          <ons-tab
+            label="Animations"
+            icon="ion-film-marker"
+            page="animations.html"
+          ></ons-tab>
+        </ons-tabbar>
       </ons-page>
     </template>
 
@@ -187,6 +208,9 @@
 
       #cardstyle3 {
         background: rgb(189, 168, 248);
+      }
+      #allCards {
+        margin-bottom: 60px;
       }
     </style>
 
