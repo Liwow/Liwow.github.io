@@ -36,14 +36,31 @@
       #appTabbar {
         position: fixed;
       }
+      #create {
+        flex-grow: 1;
+        background-color: green; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 2px;
+      }
     </style>
   </head>
   <body>
-    <ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
+    <ons-navigator
+      swipeable
+      id="myNavigator"
+      page="tabbar.html"
+    ></ons-navigator>
 
     <template id="page1.html">
       <ons-page>
         <div id="map"></div>
+        <button id="create">Create review</button>
 
         <script>
           var map;
@@ -57,66 +74,66 @@
               //tilt: 45
             });
 
-          var marker1 = new google.maps.Marker({
-          position: { lat: 59.3434, lng: 18.0548 },
-          map: map,
-          title: "Stadsbiblioteket"
-          });
-          marker1.addListener("click", function() {
-          infowindow.open(map, marker1);
-          });
+            var marker1 = new google.maps.Marker({
+              position: { lat: 59.3434, lng: 18.0548 },
+              map: map,
+              title: "Stadsbiblioteket"
+            });
+            marker1.addListener("click", function() {
+              infowindow.open(map, marker1);
+            });
 
-          var marker2 = new google.maps.Marker({
-          position: { lat: 59.340370, lng: 18.057978 },
-          map: map,
-          title: "Cha Talk"
-          });
-          marker2.addListener("click", function() {
-          infowindow2.open(map, marker2);
-          });
+            var marker2 = new google.maps.Marker({
+              position: { lat: 59.34037, lng: 18.057978 },
+              map: map,
+              title: "Cha Talk"
+            });
+            marker2.addListener("click", function() {
+              infowindow2.open(map, marker2);
+            });
 
-          var marker3 = new google.maps.Marker({
-          position: { lat: 59.347210, lng: 18.070866 },
-          map: map,
-          title: "Nymble"
-          });
-          marker3.addListener("click", function() {
-          infowindow3.open(map, marker3);
-          });
+            var marker3 = new google.maps.Marker({
+              position: { lat: 59.34721, lng: 18.070866 },
+              map: map,
+              title: "Nymble"
+            });
+            marker3.addListener("click", function() {
+              infowindow3.open(map, marker3);
+            });
 
-          var marker1String =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          "</div>" +
-          '<div id="bodyContent">' +
-          "<p><b>Stadsbiblioteket</b></p>" +
-          "</div>";
+            var marker1String =
+              '<div id="content">' +
+              '<div id="siteNotice">' +
+              "</div>" +
+              '<div id="bodyContent">' +
+              "<p><b>Stadsbiblioteket</b></p>" +
+              "</div>";
 
-          var marker2String =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          "</div>" +
-          '<div id="bodyContent">' +
-          "<p><b>Cha Talk</b></p>" +
-          "</div>";
+            var marker2String =
+              '<div id="content">' +
+              '<div id="siteNotice">' +
+              "</div>" +
+              '<div id="bodyContent">' +
+              "<p><b>Cha Talk</b></p>" +
+              "</div>";
 
-          var marker3String =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          "</div>" +
-          '<div id="bodyContent">' +
-          "<p><b>Nymble</b></p>" +
-          "</div>";
+            var marker3String =
+              '<div id="content">' +
+              '<div id="siteNotice">' +
+              "</div>" +
+              '<div id="bodyContent">' +
+              "<p><b>Nymble</b></p>" +
+              "</div>";
 
-          var infowindow = new google.maps.InfoWindow({
-          content: marker1String
-          });
-          var infowindow2 = new google.maps.InfoWindow({
-          content: marker2String
-          });
-          var infowindow3 = new google.maps.InfoWindow({
-          content: marker3String
-          });
+            var infowindow = new google.maps.InfoWindow({
+              content: marker1String
+            });
+            var infowindow2 = new google.maps.InfoWindow({
+              content: marker2String
+            });
+            var infowindow3 = new google.maps.InfoWindow({
+              content: marker3String
+            });
 
             marker1.setMap(map);
             marker2.setMap(map);
@@ -188,44 +205,94 @@
             }
           }
         </script>
-        <div id="allCards">
-          <ons-card
-            id="cardstyle1"
-            onclick="fn.pushPage({'id': 'cafe1.html', 'title': 'Cafe 1'})"
-          >
-            <div class="title">Cafe 1</div>
-            <div class="content">
-              Distance
-            </div>
-          </ons-card>
-          <ons-card id="cardstyle2">
-            <div class="title">Cafe 2</div>
-            <div class="content">
-              Distance
-            </div>
-          </ons-card>
-          <ons-card id="cardstyle3">
-            <div class="title">Cafe 3</div>
-            <div class="content">
-              Distance
-            </div>
-          </ons-card>
-        </div>
+        <ons-card
+          id="cardstyle1"
+          onclick="fn.pushPage({'id': 'cafe1.html', 'title': 'Cafe 1'})"
+        >
+          <div class="title">Cafe 1</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+        <ons-card id="cardstyle2">
+          <div class="title">Cafe 2</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+        <ons-card id="cardstyle3">
+          <div class="title">Cafe 3</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+      </ons-page>
+    </template>
 
+    <template id="tabbar.html">
+      <ons-page id="tabbar-page">
         <ons-tabbar swipeable id="appTabbar" position="bottom">
           <ons-tab
             label="Home"
             icon="ion-home"
-            page="home.html"
+            page="page1.html"
             active
           ></ons-tab>
-          <ons-tab label="Forms" icon="ion-edit" page="forms.html"></ons-tab>
           <ons-tab
-            label="Animations"
-            icon="ion-film-marker"
-            page="animations.html"
+            label="Favourite places"
+            icon="ion-star"
+            page="favourites.html"
+          ></ons-tab>
+          <ons-tab
+            label="Profile"
+            icon="ion-person"
+            page="profile.html"
           ></ons-tab>
         </ons-tabbar>
+      </ons-page>
+    </template>
+
+    <template id="favourites.html">
+      <ons-page>
+        <ons-card
+          id="cardstyle1"
+          onclick="fn.pushPage({'id': 'cafe1.html', 'title': 'Cafe 1'})"
+        >
+          <div class="title">Cafe 1</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+        <ons-card id="cardstyle2">
+          <div class="title">Cafe 2</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+        <ons-card id="cardstyle3">
+          <div class="title">Cafe 3</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+      </ons-page>
+    </template>
+
+    <template id="profile.html">
+      <ons-page>
+        <img
+          id="profilePicture"
+          src="https://img.apmcdn.org/768cb350c59023919f564341090e3eea4970388c/normal/5034f3-20180309-rick-astley.jpg"
+          alt="profilePic"
+          height="200px"
+          width="200px"
+        />
+
+        <p>Name: Rick Astley</p>
+        <p>e-mail: ra@kth.se</p>
+        <p>No. favourite places: 3</p>
+        <p>Rated places: 1</p>
+        <button>View your reviews</button>
       </ons-page>
     </template>
 
@@ -246,6 +313,13 @@
     </template>
 
     <style>
+      #profilePicture {
+        margin-top: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
       .hero {
         float: right;
       }
@@ -273,9 +347,6 @@
 
       #cardstyle3 {
         background: rgb(189, 168, 248);
-      }
-      #allCards {
-        margin-bottom: 60px;
       }
     </style>
 
