@@ -60,6 +60,17 @@
 
         <div id="buttons">
           <button class="button" id="myPos">My position</button>
+          <div id="map"></div>
+          <script>
+            var goFS = document.getElementById("goFS");
+            goFS.addEventListener(
+              "click",
+              function() {
+                document.body.requestFullscreen();
+              },
+              false
+            );
+          </script>
 
           <button class="button" id="goFS">Go fullscreen</button>
         </div>
