@@ -34,12 +34,6 @@
     <template id="page1.html">
       <ons-page id="col">
         <div id="map"></div>
-        <button
-          class="button"
-          onclick="fn.pushPage({'id': 'createReview.html', 'title': 'Cafe 1'})"
-        >
-          Create review
-        </button>
 
         <ons-card
           id="cardstyle1"
@@ -180,6 +174,12 @@
         <br />
         <p><b>Food available:</b> Only pastry</p>
         <p><b>Student discount:</b> Discount available</p>
+        <button
+        class="button"
+        onclick="fn.pushPage({'id': 'createReview.html', 'title': 'Cafe 1'})"
+      >
+        Leave a review
+      </button>
       </ons-page>
     </template>
 

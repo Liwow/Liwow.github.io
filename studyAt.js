@@ -23,7 +23,8 @@ function initMap() {
   var marker2 = new google.maps.Marker({
     position: { lat: 59.34037, lng: 18.057978 },
     map: map,
-    title: "Cha Talk"
+    title: "Cha Talk",
+    icon: icon
   });
   marker2.addListener("click", function() {
     infowindow2.open(map, marker2);
@@ -32,12 +33,14 @@ function initMap() {
   var marker3 = new google.maps.Marker({
     position: { lat: 59.34721, lng: 18.070866 },
     map: map,
-    title: "Nymble"
+    title: "Nymble",
+    icon: icon
   });
   marker3.addListener("click", function() {
     infowindow3.open(map, marker3);
   });
 
+  
   var marker1String =
     '<div id="content">' +
     '<div id="siteNotice">' +
