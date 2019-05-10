@@ -11,8 +11,10 @@
       rel="stylesheet"
       href="https://unpkg.com/onsenui/css/onsen-css-components.min.css"
     />
+    <link rel="stylesheet" type="text/css" href="studyAt.css" />
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
     <script src="functions.js"></script>
+    <script src="studyAt.js"></script>
     <meta name="viewport" content="initial-scale=1.0" />
     <meta charset="utf-8" />
     <link
@@ -21,37 +23,6 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-    <style>
-      #map {
-        height: 300px;
-        will-change: auto;
-        padding: 10px;
-        margin: 10px;
-        border-radius: 15px;
-      }
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-
-      #appTabbar {
-        position: fixed;
-      }
-      .button {
-        margin-top: 5px;
-        width: 90%;
-        margin-left: 5%;
-        margin-right: 5%;
-        background-color: rgb(182, 87, 182);
-        border: none;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        font-size: 20px;
-      }
-    </style>
   </head>
   <body>
     <ons-navigator
@@ -69,149 +40,7 @@
         >
           Create review
         </button>
-        <script>
-          var map;
 
-          function initMap() {
-            map = new google.maps.Map(document.getElementById("map"), {
-              center: { lat: 59.3498092, lng: 18.0684758 },
-              zoom: 17,
-              mapTypeId: "roadmap",
-              tilt: 0
-              //tilt: 45
-            });
-
-            var marker1 = new google.maps.Marker({
-              position: { lat: 59.3434, lng: 18.0548 },
-              map: map,
-              title: "Stadsbiblioteket"
-            });
-            marker1.addListener("click", function() {
-              infowindow.open(map, marker1);
-            });
-
-            var marker2 = new google.maps.Marker({
-              position: { lat: 59.34037, lng: 18.057978 },
-              map: map,
-              title: "Cha Talk"
-            });
-            marker2.addListener("click", function() {
-              infowindow2.open(map, marker2);
-            });
-
-            var marker3 = new google.maps.Marker({
-              position: { lat: 59.34721, lng: 18.070866 },
-              map: map,
-              title: "Nymble"
-            });
-            marker3.addListener("click", function() {
-              infowindow3.open(map, marker3);
-            });
-
-            var marker1String =
-              '<div id="content">' +
-              '<div id="siteNotice">' +
-              "</div>" +
-              '<div id="bodyContent">' +
-              "<p><b>Stadsbiblioteket</b></p>" +
-              "</div>";
-
-            var marker2String =
-              '<div id="content">' +
-              '<div id="siteNotice">' +
-              "</div>" +
-              '<div id="bodyContent">' +
-              "<p><b>Cha Talk</b></p>" +
-              "</div>";
-
-            var marker3String =
-              '<div id="content">' +
-              '<div id="siteNotice">' +
-              "</div>" +
-              '<div id="bodyContent">' +
-              "<p><b>Nymble</b></p>" +
-              "</div>";
-
-            var infowindow = new google.maps.InfoWindow({
-              content: marker1String
-            });
-            var infowindow2 = new google.maps.InfoWindow({
-              content: marker2String
-            });
-            var infowindow3 = new google.maps.InfoWindow({
-              content: marker3String
-            });
-
-            marker1.setMap(map);
-            marker2.setMap(map);
-            marker3.setMap(map);
-
-            function CenterControl(controlDiv, map) {
-              // Set CSS for the control border.
-              var controlUI = document.createElement("div");
-              controlUI.style.backgroundColor = "#fff";
-              controlUI.style.border = "2px solid #fff";
-              controlUI.style.borderRadius = "3px";
-              controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
-              controlUI.style.cursor = "pointer";
-              controlUI.style.marginBottom = "22px";
-              controlUI.style.textAlign = "center";
-              controlUI.title = "Click to recenter the map";
-              controlDiv.appendChild(controlUI);
-
-              // Set CSS for the control interior.
-              var controlText = document.createElement("div");
-              controlText.style.color = "rgb(25,25,25)";
-              controlText.style.fontFamily = "Roboto,Arial,sans-serif";
-              controlText.style.fontSize = "16px";
-              controlText.style.lineHeight = "38px";
-              controlText.style.paddingLeft = "5px";
-              controlText.style.paddingRight = "5px";
-              controlText.innerHTML = "My Position";
-              controlUI.appendChild(controlText);
-
-              controlDiv.addEventListener("click", function() {
-                navigator.geolocation.getCurrentPosition(getPos, showError);
-              });
-            }
-
-            // Create the DIV to hold the control and call the CenterControl()
-            // constructor passing in this DIV.
-            var centerControlDiv = document.createElement("div");
-            centerControlDiv.setAttribute("id", "myPos");
-            var centerControl = new CenterControl(centerControlDiv, map);
-
-            centerControlDiv.index = 1;
-            map.controls[google.maps.ControlPosition.TOP_CENTER].push(
-              centerControlDiv
-            );
-
-            function getPos(position) {
-              map.setCenter({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              });
-              map.setZoom(16);
-            }
-
-            function showError(error) {
-              switch (error.code) {
-                case error.PERMISSION_DENIED:
-                  alert("User denied the request for Geolocation.");
-                  break;
-                case error.POSITION_UNAVAILABLE:
-                  alert("Location information is unavailable.");
-                  break;
-                case error.TIMEOUT:
-                  alert("The request to get user location timed out.");
-                  break;
-                case error.UNKNOWN_ERROR:
-                  alert("An unknown error occurred.");
-                  break;
-              }
-            }
-          }
-        </script>
         <ons-card
           id="cardstyle1"
           onclick="fn.pushPage({'id': 'cafe1.html', 'title': 'Cafe 1'})"
@@ -386,62 +215,6 @@
         <input type="text" />
       </ons-page>
     </template>
-
-    <style>
-      #col .page__background {
-        background-color: rgb(253, 226, 253);
-      }
-
-      .colour {
-        background: blue;
-      }
-      #profilePicture {
-        margin-top: 10px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
-      }
-      p {
-        padding-left: 10px;
-      }
-
-      h3 {
-        text-align: center;
-      }
-      .checked {
-        color: rgb(247, 125, 206);
-      }
-
-      .hero {
-        float: right;
-      }
-      .intro {
-        text-align: center;
-        padding: 0 20px;
-        margin-top: 40px;
-      }
-      ons-card {
-        cursor: pointer;
-        color: #333;
-      }
-      .card__title,
-      .card--material__title {
-        font-size: 20px;
-      }
-
-      #cardstyle1 {
-        background: rgb(248, 168, 217);
-      }
-
-      #cardstyle2 {
-        background: rgb(225, 168, 248);
-      }
-
-      #cardstyle3 {
-        background: rgb(189, 168, 248);
-      }
-    </style>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?callback=initMap"
