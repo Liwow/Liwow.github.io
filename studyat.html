@@ -76,10 +76,13 @@
               //tilt: 45
             });
 
+            var icon = 'marker.png';
+
             var marker1 = new google.maps.Marker({
               position: { lat: 59.3434, lng: 18.0548 },
               map: map,
-              title: "Stadsbiblioteket"
+              title: "Stadsbiblioteket",
+              icon: icon
             });
             marker1.addListener("click", function() {
               infowindow.open(map, marker1);
