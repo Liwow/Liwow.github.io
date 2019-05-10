@@ -35,7 +35,6 @@
     </style>
   </head>
   <body>
-    
     <ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
 
     <template id="page1.html">
@@ -129,7 +128,10 @@
             marker1.addListener("click", toggleBounce);
           }
         </script>
-        <ons-card id="cardstyle1">
+        <ons-card
+          id="cardstyle1"
+          onclick="fn.pushPage({'id': 'cafe1.html', 'title': 'Cafe 1'})"
+        >
           <div class="title">Cafe 1</div>
           <div class="content">
             Distance
@@ -147,6 +149,22 @@
             Distance
           </div>
         </ons-card>
+      </ons-page>
+    </template>
+
+    <template id="cafe1.html">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left"><ons-back-button>Page 1</ons-back-button></div>
+          <div class="center"></div>
+        </ons-toolbar>
+
+        <h4>Cafe 1</h4>
+        <p>Overall rating: 4 stars</p>
+        <p>WIFI: Yes, 3 stars</p>
+        <p>Power outlet: Yes, plenty</p>
+        <p>Food available: Only pastry</p>
+        <p>Sound level: Like an ordinary cafe, conversation level</p>
       </ons-page>
     </template>
 
@@ -179,7 +197,6 @@
       #cardstyle3 {
         background: rgb(189, 168, 248);
       }
-      
     </style>
 
     <script
