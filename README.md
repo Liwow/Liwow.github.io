@@ -1,4 +1,4 @@
-# Study@ by group Cinos
+# Study@ - by group Cinos
 
 ## Project Description: 
 
