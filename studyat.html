@@ -40,17 +40,17 @@
       #appTabbar {
         position: fixed;
       }
-      #create {
-        flex-grow: 1;
-        background-color: green; /* Green */
+      .button {
+        margin-top: 5px;
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        background-color: purple;
         border: none;
         color: white;
-        padding: 15px 20px;
         text-align: center;
         text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 2px;
+        font-size: 20px;
       }
     </style>
   </head>
@@ -64,8 +64,7 @@
     <template id="page1.html">
       <ons-page>
         <div id="map"></div>
-        <button id="create">Create review</button>
-
+        <button class="button">Create review</button>
         <script>
           var map;
 
