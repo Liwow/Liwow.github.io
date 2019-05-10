@@ -20,13 +20,13 @@
     />
     <style>
       #map {
-        height: 100%;
+        height: 300px;
         will-change: auto;
         padding: 10px;
       }
       html,
       body {
-        height: 60%;
+        height: 100%;
         margin: 0;
         padding: 0;
       }
@@ -52,129 +52,121 @@
     </style>
   </head>
   <body>
-    <div id="map"></div>
+    <ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
 
-    <div id="buttons">
+    <template id="page1.html">
+      <ons-page>
+        <div id="map"></div>
 
-      <button class="button" id="myPos">My position</button>
+        <div id="buttons">
+          <button class="button" id="myPos">My position</button>
 
-      <button class="button" id="goFS">Go fullscreen</button>
-    </div>
-    <script>
-      var goFS = document.getElementById("goFS");
-      goFS.addEventListener(
-        "click",
-        function() {
-          document.body.requestFullscreen();
-        },
-        false
-      );
-    </script>
+          <button class="button" id="goFS">Go fullscreen</button>
+        </div>
+        <script>
+          var goFS = document.getElementById("goFS");
+          goFS.addEventListener(
+            "click",
+            function() {
+              document.body.requestFullscreen();
+            },
+            false
+          );
+        </script>
 
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: 59.3498092, lng: 18.0684758 },
-          zoom: 16,
-          mapTypeId: "roadmap",
-          tilt: 0
-          //tilt: 45
-        });
+        <script>
+          var map;
+          function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+              center: { lat: 59.3498092, lng: 18.0684758 },
+              zoom: 16,
+              mapTypeId: "roadmap",
+              tilt: 0
+              //tilt: 45
+            });
 
-        function getPos(position) {
-          map.setCenter({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-          map.setZoom(16);
-        }
+            function getPos(position) {
+              map.setCenter({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              });
+              map.setZoom(16);
+            }
 
-        function showError(error) {
-          switch (error.code) {
-            case error.PERMISSION_DENIED:
-              alert("User denied the request for Geolocation.");
-              break;
-            case error.POSITION_UNAVAILABLE:
-              alert("Location information is unavailable.");
-              break;
-            case error.TIMEOUT:
-              alert("The request to get user location timed out.");
-              break;
-            case error.UNKNOWN_ERROR:
-              alert("An unknown error occurred.");
-              break;
+            function showError(error) {
+              switch (error.code) {
+                case error.PERMISSION_DENIED:
+                  alert("User denied the request for Geolocation.");
+                  break;
+                case error.POSITION_UNAVAILABLE:
+                  alert("Location information is unavailable.");
+                  break;
+                case error.TIMEOUT:
+                  alert("The request to get user location timed out.");
+                  break;
+                case error.UNKNOWN_ERROR:
+                  alert("An unknown error occurred.");
+                  break;
+              }
+            }
+
+            google.maps.event.addDomListener(
+              document.getElementById("myPos"),
+              "click",
+              function() {
+                navigator.geolocation.getCurrentPosition(getPos, showError);
+              }
+            );
+
+            marker1 = new google.maps.Marker({
+              map: map,
+              draggable: true,
+              animation: google.maps.Animation.DROP,
+              position: { lat: 59.327, lng: 18.067 }
+            });
+
+            marker1.addListener("click", toggleBounce);
           }
-        }
+        </script>
+        <ons-card>
+          <div class="title">Cafe 1</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+        <ons-card>
+          <div class="title">Cafe 2</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+        <ons-card>
+          <div class="title">Cafe 3</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+      </ons-page>
+    </template>
 
-        google.maps.event.addDomListener(
-          document.getElementById("myPos"),
-          "click",
-          function() {
-            navigator.geolocation.getCurrentPosition(getPos, showError);
-          }
-        );
-
-        marker1 = new google.maps.Marker({
-          map: map,
-          draggable: true,
-          animation: google.maps.Animation.DROP,
-          position: { lat: 59.327, lng: 18.067 }
-        });
-
-        marker1.addListener("click", toggleBounce);
+    <style>
+      .hero {
+        float: right;
       }
-    </script>
-    
-
-      <ons-card
-        onclick="fn.pushPage({'id': 'dmgHeroes.html', 'title': 'DmgHeroes'})"
-      >
-        <div class="title">Cafe 1</div>
-        <div class="content">
-          Distance
-        </div>
-      </ons-card>
-      <ons-card
-        onclick="fn.pushPage({'id': 'tankHeroes.html', 'title': 'TankHeroes'})"
-      >
-        <div class="title">Cafe 2</div>
-        <div class="content">
-          Distance
-        </div>
-      </ons-card>
-      <ons-card
-        onclick="fn.pushPage({'id': 'supHeroes.html', 'title': 'SupHeroes'})"
-      >
-        <div class="title">Cafe 3</div>
-        <div class="content">
-          Distance
-        </div>
-      </ons-card>
-
-      <style>
-        .hero {
-          float: right;
-        }
-        .intro {
-          text-align: center;
-          padding: 0 20px;
-          margin-top: 40px;
-        }
-        ons-card {
-          cursor: pointer;
-          color: #333;
-        }
-        .card__title,
-        .card--material__title {
-          font-size: 20px;
-        }
-      </style>
-    </ons-page>
-  </ons-navigator>
-
-</body>
-</html>
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?callback=initMap"
