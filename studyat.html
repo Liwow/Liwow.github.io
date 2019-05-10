@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="../yahoi.png" />
     <title>Simple Map</title>
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css" />
@@ -215,16 +216,43 @@
           <div class="center"></div>
         </ons-toolbar>
 
-        <h4>Cafe 1</h4>
-        <p>Overall rating: 4 stars</p>
-        <p>WIFI: Yes, 3 stars</p>
-        <p>Power outlet: Yes, plenty</p>
-        <p>Food available: Only pastry</p>
-        <p>Sound level: Like an ordinary cafe, conversation level</p>
+        <h3>Cafe 1</h3><br>
+        <p><b>Overall rating:</b>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span> </p>
+        <p><b>WIFI:</b> <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span></p>
+        <p><b>Power outlet:</b> <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span></p>
+        <p><b>Sound level:</b> <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span></p>
+          <br>
+        <p><b>Food available:</b> Only pastry</p>
+        <p><b>Student discount:</b> Discount available</p>
       </ons-page>
     </template>
 
     <style>
+
+      h3 {
+        text-align: center;
+      }
+      .checked {
+        color: rgb(247, 125, 206);
+      }
+
       .hero {
         float: right;
       }
