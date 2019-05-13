@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,7 +25,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <body id="col">
+  <body>
     <ons-navigator
       swipeable
       id="myNavigator"
@@ -32,7 +33,7 @@
     ></ons-navigator>
 
     <template id="page1.html">
-      <ons-page>
+      <ons-page id="col">
         <div id="map"></div>
 
         <ons-card
@@ -128,8 +129,8 @@
 
     <template id="cafe1.html">
       <ons-page id="col">
-        <ons-toolbar>
-          <div class="left"><ons-back-button>Page 1</ons-back-button></div>
+        <ons-toolbar class="topbar">
+          <div class="left" id="hello"><ons-back-button>Page 1</ons-back-button></div>
           <div class="center"></div>
         </ons-toolbar>
 
@@ -175,17 +176,17 @@
         <p><b>Food available:</b> Only pastry</p>
         <p><b>Student discount:</b> Discount available</p>
         <button
-          class="button"
-          onclick="fn.pushPage({'id': 'createReview.html', 'title': 'Cafe 1'})"
-        >
-          Leave a review
-        </button>
+        class="button"
+        onclick="fn.pushPage({'id': 'createReview.html', 'title': 'Cafe 1'})"
+      >
+        Leave a review
+      </button>
       </ons-page>
     </template>
 
     <template id="createReview.html">
       <ons-page>
-        <ons-toolbar>
+        <ons-toolbar class="topbar">
           <div class="left"><ons-back-button>Page 1</ons-back-button></div>
           <div class="center"></div>
         </ons-toolbar>
@@ -193,107 +194,76 @@
         <h3>Cafe 1</h3>
         <br />
         <p>
-          <b
-            >Overall rating:<span class="sliderOutput" id="overallOutput"
-              >1</span
-            ></b
-          >
+          <b>Overall rating:</b>
         </p>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          value="1"
-          class="slider"
-          id="overall"
-          oninput="showValue(this)"
-        />
+        <input type="text" />
         <p>
-          <b>WIFI:<span class="sliderOutput" id="wifiOutput">1</span></b>
+          <b>WIFI:</b>
         </p>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          value="1"
-          class="slider"
-          id="wifi"
-          oninput="showValue(this)"
-        />
+        <input type="text" />
         <p>
-          <b
-            >Power outlet:<span class="sliderOutput" id="powerOutput"
-              >1</span
-            ></b
-          >
+          <b>Power outlet:</b>
         </p>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          value="1"
-          class="slider"
-          id="power"
-          oninput="showValue(this)"
-        />
+        <input type="text" />
         <p>
-          <b
-            >Sound level:<span class="sliderOutput" id="soundOutput">1</span></b
-          >
+          <b>Sound level:</b>
         </p>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          value="1"
-          class="slider"
-          id="sound"
-          oninput="showValue(this)"
-        />
-        <br />
-        <p>
-          <b
-            >Good prices:<span class="sliderOutput" id="priceOutput">1</span></b
-          >
-        </p>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          value="1"
-          class="slider"
-          id="price"
-          oninput="showValue(this)"
-        />
+        <input type="text" />
         <br />
         <p><b>Food available:</b></p>
-        <textarea
-          style="resize: none;"
-          name="Text1"
-          cols="40"
-          rows="5"
-          class="textinput"
-        ></textarea>
-        <p>
-          <b
-            >Student discount:
-            <input
-              class="checkbox"
-              type="checkbox"
-              name="studentDiscount"
-              value="discountAvailable"
-          /></b>
-        </p>
-
-        <button
-          class="button"
-          onclick="fn.pushPage({'id': 'createReview.html', 'title': 'Cafe 1'})"
-        >
-          Submit review
-        </button>
+        <input type="text" />
+        <p><b>Student discount:</b></p>
+        <input type="text" />
       </ons-page>
     </template>
 
+    <style>
+      .topbar {
+        background-color:rgb(247, 137, 210);
+      }
+    </style>
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 59.3498065, lng: 18.0706646},
+          zoom: 15
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Enemy spotted.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
     <script
       src="https://maps.googleapis.com/maps/api/js?callback=initMap"
       async
