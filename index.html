@@ -1,61 +1,226 @@
+
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="icon" href="yahoi.png" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="HandheldFriendly" content="true" />
-    <title>Simple Map</title>
+    <title>Study@</title>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/onsenui/css/onsen-css-components.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="studyAt.css" />
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="functions.js"></script>
+    <script src="studyAt.js"></script>
     <meta name="viewport" content="initial-scale=1.0" />
     <meta charset="utf-8" />
-    <style>
-      #map {
-        height: 100%;
-        will-change: auto;
-      }
-      html,
-      body {
-        height: 90%;
-        margin: 0;
-        padding: 0;
-        background: url("https://www.xmple.com/wallpaper/gradient-linear-pink-blue-1920x1080-c2-fec7ea-c9c7fe-a-225-f-14.svg");
-        background-size: 900px;
-      }
-      img {
-        text-align: center;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <div id="starter">
-      <a href="./studyat.html" class="enter_link"
-        ><img id="image" src="coffee.png"
-      /></a>
-      Click me to start the app
-    </div>
+    <ons-navigator
+      swipeable
+      id="myNavigator"
+      page="tabbar.html"
+    ></ons-navigator>
 
-    <style>
-      #starter {
-        position: static;
-        color: white;
-        font-size: 25pt;
-        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-          "Lucida Sans", Arial, sans-serif;
-        text-align: center;
-      }
-      #image {
-        max-width: 100%;
-        max-height: 100%;
-        padding-top: 90px;
-      }
-    </style>
+    <template id="page1.html">
+      <ons-page id="col">
+        <div id="map"></div>
+
+        <ons-card
+          id="cardstyle1"
+          onclick="fn.pushPage({'id': 'cafe1.html', 'title': 'Cafe 1'})"
+        >
+          <div class="title">Cafe 1</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+        <ons-card id="cardstyle2">
+          <div class="title">Cafe 2</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+        <ons-card id="cardstyle3">
+          <div class="title">Cafe 3</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+      </ons-page>
+    </template>
+
+    <template id="tabbar.html">
+      <ons-page id="tabbar-page">
+        <ons-tabbar swipeable id="appTabbar" position="bottom">
+          <ons-tab
+            label="Home"
+            icon="ion-home"
+            page="page1.html"
+            active
+          ></ons-tab>
+          <ons-tab
+            label="Favourite places"
+            icon="ion-star"
+            page="favourites.html"
+          ></ons-tab>
+          <ons-tab
+            label="Profile"
+            icon="ion-person"
+            page="profile.html"
+          ></ons-tab>
+        </ons-tabbar>
+      </ons-page>
+    </template>
+
+    <template id="favourites.html">
+      <ons-page id="col">
+        <ons-card
+          id="cardstyle1"
+          onclick="fn.pushPage({'id': 'cafe1.html', 'title': 'Cafe 1'})"
+        >
+          <div class="title">Cafe 1</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+        <ons-card id="cardstyle2">
+          <div class="title">Cafe 2</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+        <ons-card id="cardstyle3">
+          <div class="title">Cafe 3</div>
+          <div class="content">
+            Distance
+          </div>
+        </ons-card>
+      </ons-page>
+    </template>
+
+    <template id="profile.html">
+      <ons-page id="col">
+        <img
+          id="profilePicture"
+          src="https://img.apmcdn.org/768cb350c59023919f564341090e3eea4970388c/normal/5034f3-20180309-rick-astley.jpg"
+          alt="profilePic"
+          height="200px"
+          width="200px"
+        />
+
+        <p>Name: Rick Astley</p>
+        <p>e-mail: ra@kth.se</p>
+        <p>No. favourite places: 3</p>
+        <p>Rated places: 1</p>
+        <button>View your reviews</button>
+      </ons-page>
+    </template>
+
+    <template id="cafe1.html">
+      <ons-page id="col">
+        <ons-toolbar>
+          <div class="left"><ons-back-button>Page 1</ons-back-button></div>
+          <div class="center"></div>
+        </ons-toolbar>
+
+        <h3>Cafe 1</h3>
+        <p>
+          <b>Overall rating:</b>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+        </p>
+        <br />
+        <p>
+          <b>WIFI:</b> <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </p>
+        <p>
+          <b>Power outlet:</b> <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </p>
+        <p>
+          <b>Sound level:</b> <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </p>
+        <p>
+          <b>Prices:</b> <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </p>
+        <br />
+        <p><b>Food available:</b> Only pastry</p>
+        <p><b>Student discount:</b> Discount available</p>
+        <button
+        class="button"
+        onclick="fn.pushPage({'id': 'createReview.html', 'title': 'Cafe 1'})"
+      >
+        Leave a review
+      </button>
+      </ons-page>
+    </template>
+
+    <template id="createReview.html">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left"><ons-back-button>Page 1</ons-back-button></div>
+          <div class="center"></div>
+        </ons-toolbar>
+
+        <h3>Cafe 1</h3>
+        <br />
+        <p>
+          <b>Overall rating:</b>
+        </p>
+        <input type="text" />
+        <p>
+          <b>WIFI:</b>
+        </p>
+        <input type="text" />
+        <p>
+          <b>Power outlet:</b>
+        </p>
+        <input type="text" />
+        <p>
+          <b>Sound level:</b>
+        </p>
+        <input type="text" />
+        <br />
+        <p><b>Food available:</b></p>
+        <input type="text" />
+        <p><b>Student discount:</b></p>
+        <input type="text" />
+      </ons-page>
+    </template>
+
     <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
+      src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+      async
+      defer
     ></script>
   </body>
 </html>
