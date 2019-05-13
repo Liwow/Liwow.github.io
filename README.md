@@ -8,10 +8,6 @@ The app is so far planned to have a splash screen that leads to a main page. The
 
 We also have some stretch goals in mind given that we have the time, such as creating a login and user creation, the function to add places to a favorite list and so on. 
 
-## Technology overview:
-
-We’re not entirely sure what this means, but we assume it means the technology such as what API we intend to use and such. As we are using a map function, we will use the Google Maps API similar to the first lab, combining it with the design elements we did in the second lab. We’ll use onsen or reactNative as framwork.
-
 ## Time frame:
 
 We expect to start working on the project alongside the final laboration, so our starting date will be when lab 4 is due (May 2nd). We aim to be done within the deadline.
@@ -25,8 +21,3 @@ Our group name is Cinos, with the following members. Note that the roles are onl
 - Ronya Budak, programmer and graphic designer
 
 - Celina Zander, programmer
-
-## Expected outcome:
-
-Our expected outcome is of course a fully functioning app that fulfills the promises made in the description. If needed we might adjust things such as design. Depending on how we do with time, we will add as many of our stretch goals as we can. Hopefully we’re also done on time.
-
