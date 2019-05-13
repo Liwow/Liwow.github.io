@@ -40,7 +40,6 @@ function initMap() {
     infowindow3.open(map, marker3);
   });
 
-  
   var marker1String =
     '<div id="content">' +
     '<div id="siteNotice">' +
@@ -141,4 +140,9 @@ function initMap() {
         break;
     }
   }
+}
+
+function showValue(slider) {
+  output = document.getElementById(slider.id + "Output");
+  output.innerHTML = slider.value; // Display the default slider value
 }

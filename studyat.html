@@ -24,7 +24,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body id="col">
     <ons-navigator
       swipeable
       id="myNavigator"
@@ -32,7 +32,7 @@
     ></ons-navigator>
 
     <template id="page1.html">
-      <ons-page id="col">
+      <ons-page>
         <div id="map"></div>
 
         <ons-card
@@ -193,38 +193,104 @@
         <h3>Cafe 1</h3>
         <br />
         <p>
-          <b>Overall rating:</b>
+          <b
+            >Overall rating:<span class="sliderOutput" id="overallOutput"
+              >1</span
+            ></b
+          >
         </p>
-        <input type="range" min="1" max="5" value="1" class="slider" />
+        <input
+          type="range"
+          min="1"
+          max="5"
+          value="1"
+          class="slider"
+          id="overall"
+          oninput="showValue(this)"
+        />
         <p>
-          <b>WIFI:</b>
+          <b>WIFI:<span class="sliderOutput" id="wifiOutput">1</span></b>
         </p>
-        <input type="range" min="1" max="5" value="1" class="slider" />
+        <input
+          type="range"
+          min="1"
+          max="5"
+          value="1"
+          class="slider"
+          id="wifi"
+          oninput="showValue(this)"
+        />
         <p>
-          <b>Power outlet:</b>
+          <b
+            >Power outlet:<span class="sliderOutput" id="powerOutput"
+              >1</span
+            ></b
+          >
         </p>
-        <input type="range" min="1" max="5" value="1" class="slider" />
+        <input
+          type="range"
+          min="1"
+          max="5"
+          value="1"
+          class="slider"
+          id="power"
+          oninput="showValue(this)"
+        />
         <p>
-          <b>Sound level:</b>
+          <b
+            >Sound level:<span class="sliderOutput" id="soundOutput">1</span></b
+          >
         </p>
-        <input type="range" min="1" max="5" value="1" class="slider" />
+        <input
+          type="range"
+          min="1"
+          max="5"
+          value="1"
+          class="slider"
+          id="sound"
+          oninput="showValue(this)"
+        />
         <br />
         <p>
-          <b>Prices:</b>
+          <b
+            >Good prices:<span class="sliderOutput" id="priceOutput">1</span></b
+          >
         </p>
-        <input type="range" min="1" max="5" value="1" class="slider" />
+        <input
+          type="range"
+          min="1"
+          max="5"
+          value="1"
+          class="slider"
+          id="price"
+          oninput="showValue(this)"
+        />
         <br />
         <p><b>Food available:</b></p>
-        <input type="text" class="textinput" />
+        <textarea
+          style="resize: none;"
+          name="Text1"
+          cols="40"
+          rows="5"
+          class="textinput"
+        ></textarea>
         <p>
-          <b>Student discount:</b
-          ><input
-            class="checkbox"
-            type="checkbox"
-            name="studentDiscount"
-            value="discountAvailable"
-          />Discount available<br />
+          <b
+            >Student discount:
+            <input
+              class="checkbox"
+              type="checkbox"
+              name="studentDiscount"
+              value="discountAvailable"
+          /></b>
         </p>
+
+        <button
+          class="button"
+          onclick="fn.pushPage({'id': 'createReview.html', 'title': 'Cafe 1'})"
+        >
+          Submit review
+        </button>
       </ons-page>
     </template>
 
