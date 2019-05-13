@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -176,11 +175,11 @@
         <p><b>Food available:</b> Only pastry</p>
         <p><b>Student discount:</b> Discount available</p>
         <button
-        class="button"
-        onclick="fn.pushPage({'id': 'createReview.html', 'title': 'Cafe 1'})"
-      >
-        Leave a review
-      </button>
+          class="button"
+          onclick="fn.pushPage({'id': 'createReview.html', 'title': 'Cafe 1'})"
+        >
+          Leave a review
+        </button>
       </ons-page>
     </template>
 
@@ -196,24 +195,34 @@
         <p>
           <b>Overall rating:</b>
         </p>
-        <input type="text" />
+        <input type="range" min="1" max="5" value="1" class="slider" />
         <p>
           <b>WIFI:</b>
         </p>
-        <input type="text" />
+        <input type="range" min="1" max="5" value="1" class="slider" />
         <p>
           <b>Power outlet:</b>
         </p>
-        <input type="text" />
+        <input type="range" min="1" max="5" value="1" class="slider" />
         <p>
           <b>Sound level:</b>
         </p>
-        <input type="text" />
+        <input type="range" min="1" max="5" value="1" class="slider" />
+        <br />
+        <p>
+          <b>Prices:</b>
+        </p>
+        <input type="range" min="1" max="5" value="1" class="slider" />
         <br />
         <p><b>Food available:</b></p>
-        <input type="text" />
-        <p><b>Student discount:</b></p>
-        <input type="text" />
+        <input type="text" class="textinput" />
+        <p><b>Student discount:</b><input
+          class="checkbox"
+          type="checkbox"
+          name="studentDiscount"
+          value="discountAvailable"
+        />Discount available<br /></p>
+        
       </ons-page>
     </template>
 
