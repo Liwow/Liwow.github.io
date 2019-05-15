@@ -1,14 +1,71 @@
-var map;
+var map, infoWindow;
 var icon = "marker.png";
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 59.3498092, lng: 18.0684758 },
-    zoom: 17,
+    zoom: 15,
     mapTypeId: "roadmap",
     tilt: 0
-    //tilt: 45
   });
+  infoWindow = new google.maps.InfoWindow;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Enemy spotted.');
+      infoWindow.open(map);
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+/*var map, infoWindow;
+function initMap1() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 59.3498065, lng: 18.0706646},
+      zoom: 15,
+      mapTypeId: "roadmap",
+      titlt: 0
+    });
+    infoWindow = new google.maps.InfoWindow;
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('Enemy spotted.');
+        infoWindow.open(map);
+        map.setCenter(pos);
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+}*/
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+                          'Error: The Geolocation service failed.' :
+                          'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+  }
 
   var marker1 = new google.maps.Marker({
     position: { lat: 59.3434, lng: 18.0548 },
@@ -146,3 +203,4 @@ function showValue(slider) {
   output = document.getElementById(slider.id + "Output");
   output.innerHTML = slider.value; // Display the default slider value
 }
+
