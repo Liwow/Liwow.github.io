@@ -76,21 +76,33 @@ function initMap1() {
         title: titel,
     });
     marker.addListener("click", function() {
-      console.log("say go to " + location);
       map.setZoom(16);
       map.setCenter(this.getPosition(location));
-      console.log("goes to" + this.getPosition(location));
+      markerClick.open(map, this);
     });
 }
+
 Stadsbiblioteket = new google.maps.LatLng(59.3434, 18.0548, 'aaa');
 addMarker(Stadsbiblioteket);
-
 ChaTalk = new google.maps.LatLng(59.34037, 18.057978, '2');
 addMarker(ChaTalk);
 Nymble = new google.maps.LatLng(59.34721, 18.070866, '3');
 addMarker(Nymble);
 Kaferang = new google.maps.LatLng(59.32343754999999, 18.06, '4');
 addMarker(Kaferang);
+
+var InfoContent =
+'<div id="content">' +
+'<div id="siteNotice">' +
+"</div>" +
+'<div id="bodyContent">' +
+"<p><b>Koppla till onsen card somehow, visa info</b></p>" +
+"</div>";
+
+
+var markerClick = new google.maps.InfoWindow({
+content: InfoContent
+});
 
 /*Nymble.addListener("click", function() {
   map.setZoom(8);
@@ -128,18 +140,7 @@ addMarker(Kaferang);
     infowindow3.open(map, marker3);
   });*/
 
-  var StadsContent =
-    '<div id="content">' +
-    '<div id="siteNotice">' +
-    "</div>" +
-    '<div id="bodyContent">' +
-    "<p><b>City Library here, koppla till onsen card somehow</b></p>" +
-    "</div>";
 
-
-  var stadsClick = new google.maps.InfoWindow({
-    content: StadsContent
-  });
 
   function CenterControl(controlDiv, map) {
     // Set CSS for the control border.
