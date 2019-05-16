@@ -67,7 +67,38 @@ function initMap1() {
     infoWindow.open(map);
   }
 
-  var marker1 = new google.maps.Marker({
+  function addMarker(location, titel) {
+    console.log("location " + location);
+    marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        icon: icon,
+        title: titel,
+    });
+    marker.addListener("click", function() {
+      console.log("say go to " + location);
+      map.setZoom(16);
+      map.setCenter(this.getPosition(location));
+      console.log("goes to" + this.getPosition(location));
+    });
+}
+Stadsbiblioteket = new google.maps.LatLng(59.3434, 18.0548, 'aaa');
+addMarker(Stadsbiblioteket);
+
+ChaTalk = new google.maps.LatLng(59.34037, 18.057978, '2');
+addMarker(ChaTalk);
+Nymble = new google.maps.LatLng(59.34721, 18.070866, '3');
+addMarker(Nymble);
+Kaferang = new google.maps.LatLng(59.32343754999999, 18.06, '4');
+addMarker(Kaferang);
+
+/*Nymble.addListener("click", function() {
+  map.setZoom(8);
+  map.setCenter(marker.getPosition());
+  stadsClick.open(map, stadsClick);
+});*/
+
+  /*var marker1 = new google.maps.Marker({
     position: { lat: 59.3434, lng: 18.0548 },
     map: map,
     title: "Stadsbiblioteket",
@@ -95,45 +126,20 @@ function initMap1() {
   });
   marker3.addListener("click", function() {
     infowindow3.open(map, marker3);
-  });
+  });*/
 
-  var marker1String =
+  var StadsContent =
     '<div id="content">' +
     '<div id="siteNotice">' +
     "</div>" +
     '<div id="bodyContent">' +
-    "<p><b>Stadsbiblioteket</b></p>" +
+    "<p><b>City Library here, koppla till onsen card somehow</b></p>" +
     "</div>";
 
-  var marker2String =
-    '<div id="content">' +
-    '<div id="siteNotice">' +
-    "</div>" +
-    '<div id="bodyContent">' +
-    "<p><b>Cha Talk</b></p>" +
-    "</div>";
 
-  var marker3String =
-    '<div id="content">' +
-    '<div id="siteNotice">' +
-    "</div>" +
-    '<div id="bodyContent">' +
-    "<p><b>Nymble</b></p>" +
-    "</div>";
-
-  var infowindow = new google.maps.InfoWindow({
-    content: marker1String
+  var stadsClick = new google.maps.InfoWindow({
+    content: StadsContent
   });
-  var infowindow2 = new google.maps.InfoWindow({
-    content: marker2String
-  });
-  var infowindow3 = new google.maps.InfoWindow({
-    content: marker3String
-  });
-
-  marker1.setMap(map);
-  marker2.setMap(map);
-  marker3.setMap(map);
 
   function CenterControl(controlDiv, map) {
     // Set CSS for the control border.
