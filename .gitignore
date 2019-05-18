@@ -156,7 +156,6 @@ $RECYCLE.BIN/
 
 
 
-public
 node_modules
 *.json
 *.sqlite

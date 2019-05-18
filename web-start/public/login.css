@@ -1,0 +1,38 @@
+#googleImage {
+  border-radius: 50%;
+  border-style: inset;
+}
+#loginBg {
+  background-color: rgb(253, 226, 253);
+}
+
+#useEmail {
+  width: 50%;
+  text-align: center;
+}
+
+#useGoogle {
+  width: 50%;
+  margin-top: 17%;
+  margin-left: 7%;
+  text-align: center;
+  border-left-style: solid;
+}
+
+#submitButton:hover {
+  background-color: pink;
+}
+
+#useGoogle:hover {
+  background-color: pink;
+}
+
+#login {
+  display: flex;
+  margin-top: 17%;
+}
+
+#headline {
+  text-align: center;
+  margin-top: 25%;
+}
