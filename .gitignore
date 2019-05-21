@@ -161,4 +161,4 @@ node_modules
 *.sqlite
 
 *.firebaserc
-functions.js
+
