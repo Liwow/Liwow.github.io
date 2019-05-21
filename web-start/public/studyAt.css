@@ -161,3 +161,7 @@ ons-tab {
   border-width: 7px;
   border-radius: 10px;
 }
+
+#powerStar, #wifiStar, #soundStar, #priceStar, #overallStar {
+  padding-left: 10px;
+}
