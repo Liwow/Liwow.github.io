@@ -8,7 +8,7 @@ function initMap() {
     mapTypeId: "roadmap",
     tilt: 0
   });
-  infoWindow = new google.maps.InfoWindow;
+  infoWindow = new google.maps.InfoWindow();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
