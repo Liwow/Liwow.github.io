@@ -46,7 +46,7 @@ function initMap() {
     var a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var dist = earthRadius * c;
-    console.log(dist);
+    console.log("distance" + dist);
     return dist;
     }
 
@@ -58,10 +58,12 @@ function initMap() {
         icon: icon,
         title: titel,
     });
+    console.log("titel1: " + marker.titel + " " + this.titel);
     marker.addListener("click", function() {
       map.setZoom(16);
       map.setCenter(this.getPosition(location));
       markerClick.open(map, this);
+      console.log("titel: " + marker.titel + " " + this.titel);
     });
 }
 
