@@ -28,36 +28,6 @@ function initMap() {
     handleLocationError(false, infoWindow, map.getCenter());
   }
 
-/*var map, infoWindow;
-function initMap1() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 59.3498065, lng: 18.0706646},
-      zoom: 15,
-      mapTypeId: "roadmap",
-      titlt: 0
-    });
-    infoWindow = new google.maps.InfoWindow;
-
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('Enemy spotted.');
-        infoWindow.open(map);
-        map.setCenter(pos);
-      }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
-      });
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-}*/
 
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
@@ -66,6 +36,19 @@ function initMap1() {
                           'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
   }
+
+  function distFrom(lat1, lng1, lat2, lng2) {
+    var earthRadius = 3958.75;
+    var dLat = Math.toRadians(lat2-lat1);
+    var dLng = Math.toRadians(lng2-lng1);
+    var sindLat = Math.sin(dLat / 2);
+    var sindLng = Math.sin(dLng / 2);
+    var a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var dist = earthRadius * c;
+    console.log(dist);
+    return dist;
+    }
 
   function addMarker(location, titel) {
     console.log("location " + location);
