@@ -162,6 +162,10 @@ ons-tab {
   border-radius: 10px;
 }
 
-#powerStar, #wifiStar, #soundStar, #priceStar, #overallStar {
+#powerStar,
+#wifiStar,
+#soundStar,
+#priceStar,
+#overallStar {
   padding-left: 10px;
 }

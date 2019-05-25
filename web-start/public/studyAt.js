@@ -31,12 +31,13 @@ function initMap() {
     handleLocationError(false, infoWindow, map.getCenter());
   }
 
-
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-                          'Error: The Geolocation service failed.' :
-                          'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.setContent(
+      browserHasGeolocation
+        ? "Error: The Geolocation service failed."
+        : "Error: Your browser doesn't support geolocation."
+    );
     infoWindow.open(map);
   }
 
@@ -53,15 +54,15 @@ function initMap() {
     dist = Math.round((R * 2 * Math.asin(Math.sqrt(a))) * 1000) / 1000;
     console.log("distance : " + dist + " km");
     return dist;
-    }
+  }
 
   function addMarker(location, titel) {
 
     marker = new google.maps.Marker({
-        position: location,
-        map: map,
-        icon: icon,
-        title: titel,
+      position: location,
+      map: map,
+      icon: icon,
+      title: titel
     });
     marker.addListener("click", function() {
       map.setZoom(16);
@@ -139,17 +140,26 @@ content: InfoContent
     infowindow2.open(map, marker2);
   });
 
-  var marker3 = new google.maps.Marker({
-    position: { lat: 59.34721, lng: 18.070866 },
-    map: map,
-    title: "Nymble",
-    icon: icon
+  Stadsbiblioteket = new google.maps.LatLng(59.3434, 18.0548, "aaa");
+  addMarker(Stadsbiblioteket, "Stadsbiblioteket");
+  ChaTalk = new google.maps.LatLng(59.34037, 18.057978, "2");
+  addMarker(ChaTalk);
+  Nymble = new google.maps.LatLng(59.34721, 18.070866, "3");
+  addMarker(Nymble);
+  Kaferang = new google.maps.LatLng(59.32343754999999, 18.06, "4");
+  addMarker(Kaferang);
+
+  var InfoContent =
+    '<div id="content">' +
+    '<div id="siteNotice">' +
+    "</div>" +
+    '<div id="bodyContent">' +
+    "<p><b>Koppla till onsen card somehow, visa info</b></p>" +
+    "</div>";
+
+  var markerClick = new google.maps.InfoWindow({
+    content: InfoContent
   });
-  marker3.addListener("click", function() {
-    infowindow3.open(map, marker3);
-  });*/
-
-
 
   function CenterControl(controlDiv, map) {
     // Set CSS for the control border.
@@ -219,4 +229,3 @@ function showValue(slider) {
   output = document.getElementById(slider.id + "Output");
   output.innerHTML = slider.value; // Display the default slider value
 }
-

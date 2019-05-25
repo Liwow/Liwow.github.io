@@ -1,15 +1,15 @@
 function exampleCode() {
-  alert("hejj");
   var db = firebase.firestore();
-  console.log("waddup");
-
   db.collection("users")
-    .add({ first: "Ada", last: "Lovelace", born: 1815 })
-    .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
+    .get()
+    .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+      });
     })
     .catch(function(error) {
-      console.error("Error adding document: ", error);
+      console.log("Error getting documents: ", error);
     });
 }
 
@@ -84,6 +84,7 @@ function loadUser() {
       document.getElementById("userName").innerHTML = displayName;
       document.getElementById("emailadress").innerHTML = email;
       document.getElementById("profilePicture").src = photoURL;
+      document.getElementById("displayName").innerHTML = uid;
     } else {
       document.location.replace("./index.html");
     }
