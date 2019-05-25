@@ -1,7 +1,7 @@
 var map, infoWindow;
 var icon = "marker.png";
 var pos;
-var placesList = [Stadsbiblioteket, Nymble, Chatalk, Stadsbiblioteket];
+//var placesList = [Stadsbiblioteket, Nymble, Chatalk, Stadsbiblioteket];
 
 
 function initMap() {
@@ -138,7 +138,7 @@ content: InfoContent
   });
   marker2.addListener("click", function() {
     infowindow2.open(map, marker2);
-  });
+  });*/
 
   Stadsbiblioteket = new google.maps.LatLng(59.3434, 18.0548, "aaa");
   addMarker(Stadsbiblioteket, "Stadsbiblioteket");
