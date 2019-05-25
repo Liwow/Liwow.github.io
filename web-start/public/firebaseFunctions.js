@@ -1,7 +1,6 @@
-function collectReviews(email) {
+function exampleCode() {
+  var db = firebase.firestore();
   db.collection("users")
-    .doc(email)
-    .collection("submissions")
     .get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
