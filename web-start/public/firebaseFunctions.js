@@ -1,10 +1,28 @@
-function exampleCode() {
-  alert("hejj");
+newReview = document.getElementById("reviewSubmit");
+
+function addReview() {
+  alert("hello");
+  const form = event.target.elements;
+  const sDiscount = "";
   var db = firebase.firestore();
-  console.log("waddup");
+  if (document.getElementById("studentDiscount").checked) {
+    Sdiscount = "Discount available";
+  } else {
+    sDiscount = "No discount";
+  }
 
   db.collection("users")
-    .add({ first: "Ada", last: "Lovelace", born: 1815 })
+    .add({
+      place: form[0].value,
+      overall: form[1].value,
+      wifi: form[2].value,
+      powerOutlet: form[3].value,
+      soundLevel: form[4].value,
+      prices: form[5].value,
+      food: form[6].value,
+      impression: form[7].value,
+      discount: sDiscount
+    })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
     })
@@ -84,6 +102,7 @@ function loadUser() {
       document.getElementById("userName").innerHTML = displayName;
       document.getElementById("emailadress").innerHTML = email;
       document.getElementById("profilePicture").src = photoURL;
+      document.getElementById("displayName").innerHTML = uid;
     } else {
       document.location.replace("./index.html");
     }

@@ -10,53 +10,61 @@ function initMap() {
   });
   infoWindow = new google.maps.InfoWindow();
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
+    navigator.geolocation.getCurrentPosition(
+      function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
 
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('Enemy spotted.');
-      infoWindow.open(map);
-      map.setCenter(pos);
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
+        infoWindow.setPosition(pos);
+        infoWindow.setContent("Enemy spotted.");
+        infoWindow.open(map);
+        map.setCenter(pos);
+      },
+      function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      }
+    );
   } else {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
 
-
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-                          'Error: The Geolocation service failed.' :
-                          'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.setContent(
+      browserHasGeolocation
+        ? "Error: The Geolocation service failed."
+        : "Error: Your browser doesn't support geolocation."
+    );
     infoWindow.open(map);
   }
 
   function distFrom(lat1, lng1, lat2, lng2) {
     var earthRadius = 3958.75;
-    var dLat = Math.toRadians(lat2-lat1);
-    var dLng = Math.toRadians(lng2-lng1);
+    var dLat = Math.toRadians(lat2 - lat1);
+    var dLng = Math.toRadians(lng2 - lng1);
     var sindLat = Math.sin(dLat / 2);
     var sindLng = Math.sin(dLng / 2);
-    var a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var a =
+      Math.pow(sindLat, 2) +
+      Math.pow(sindLng, 2) *
+        Math.cos(Math.toRadians(lat1)) *
+        Math.cos(Math.toRadians(lat2));
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var dist = earthRadius * c;
     console.log("distance" + dist);
     return dist;
-    }
+  }
 
   function addMarker(location, titel) {
     console.log("location " + location);
     marker = new google.maps.Marker({
-        position: location,
-        map: map,
-        icon: icon,
-        title: titel,
+      position: location,
+      map: map,
+      icon: icon,
+      title: titel
     });
     console.log("titel1: " + marker.titel + " " + this.titel);
     marker.addListener("click", function() {
@@ -65,67 +73,28 @@ function initMap() {
       markerClick.open(map, this);
       console.log("titel: " + marker.titel + " " + this.titel);
     });
-}
+  }
 
-Stadsbiblioteket = new google.maps.LatLng(59.3434, 18.0548, 'aaa');
-addMarker(Stadsbiblioteket);
-ChaTalk = new google.maps.LatLng(59.34037, 18.057978, '2');
-addMarker(ChaTalk);
-Nymble = new google.maps.LatLng(59.34721, 18.070866, '3');
-addMarker(Nymble);
-Kaferang = new google.maps.LatLng(59.32343754999999, 18.06, '4');
-addMarker(Kaferang);
+  Stadsbiblioteket = new google.maps.LatLng(59.3434, 18.0548, "aaa");
+  addMarker(Stadsbiblioteket, "Stadsbiblioteket");
+  ChaTalk = new google.maps.LatLng(59.34037, 18.057978, "2");
+  addMarker(ChaTalk);
+  Nymble = new google.maps.LatLng(59.34721, 18.070866, "3");
+  addMarker(Nymble);
+  Kaferang = new google.maps.LatLng(59.32343754999999, 18.06, "4");
+  addMarker(Kaferang);
 
-var InfoContent =
-'<div id="content">' +
-'<div id="siteNotice">' +
-"</div>" +
-'<div id="bodyContent">' +
-"<p><b>Koppla till onsen card somehow, visa info</b></p>" +
-"</div>";
+  var InfoContent =
+    '<div id="content">' +
+    '<div id="siteNotice">' +
+    "</div>" +
+    '<div id="bodyContent">' +
+    "<p><b>Koppla till onsen card somehow, visa info</b></p>" +
+    "</div>";
 
-
-var markerClick = new google.maps.InfoWindow({
-content: InfoContent
-});
-
-/*Nymble.addListener("click", function() {
-  map.setZoom(8);
-  map.setCenter(marker.getPosition());
-  stadsClick.open(map, stadsClick);
-});*/
-
-  /*var marker1 = new google.maps.Marker({
-    position: { lat: 59.3434, lng: 18.0548 },
-    map: map,
-    title: "Stadsbiblioteket",
-    icon: icon
+  var markerClick = new google.maps.InfoWindow({
+    content: InfoContent
   });
-  marker1.addListener("click", function() {
-    infowindow.open(map, marker1);
-  });
-
-  var marker2 = new google.maps.Marker({
-    position: { lat: 59.34037, lng: 18.057978 },
-    map: map,
-    title: "Cha Talk",
-    icon: icon
-  });
-  marker2.addListener("click", function() {
-    infowindow2.open(map, marker2);
-  });
-
-  var marker3 = new google.maps.Marker({
-    position: { lat: 59.34721, lng: 18.070866 },
-    map: map,
-    title: "Nymble",
-    icon: icon
-  });
-  marker3.addListener("click", function() {
-    infowindow3.open(map, marker3);
-  });*/
-
-
 
   function CenterControl(controlDiv, map) {
     // Set CSS for the control border.
@@ -195,4 +164,3 @@ function showValue(slider) {
   output = document.getElementById(slider.id + "Output");
   output.innerHTML = slider.value; // Display the default slider value
 }
-
