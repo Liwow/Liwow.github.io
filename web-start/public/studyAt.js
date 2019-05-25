@@ -1,6 +1,7 @@
 var map, infoWindow;
 var icon = "marker.png";
 var pos;
+var placesList = [Stadsbiblioteket, Nymble, Chatalk, Stadsbiblioteket];
 
 
 function initMap() {
@@ -71,14 +72,34 @@ function initMap() {
     });
 }
 
-Stadsbiblioteket = new google.maps.LatLng(59.3434, 18.0548, 'aaa');
-addMarker(Stadsbiblioteket);
-ChaTalk = new google.maps.LatLng(59.34037, 18.057978, '2');
-addMarker(ChaTalk);
-Nymble = new google.maps.LatLng(59.34721, 18.070866, '3');
-addMarker(Nymble);
-Kaferang = new google.maps.LatLng(59.32343754999999, 18.06, '4');
-addMarker(Kaferang);
+/*function loopList(){
+  var len = placesList.length;
+  for(i= 0; i< len; i++){
+    placesList[i] = name;
+    var name;
+  }
+}
+
+function createMarker(id, lat, lng){
+  id = new google.maps.LatLng(lat, lng);
+  title = toString(id);
+  addMarker(id, title)
+}
+
+loopList();
+createMarker(Stadsbiblioteket, 59.3434, 18.0548);
+createMarker(Chatalk, 59.34037, 18.057978);
+createMarker(Nymble, 59.34721, 18.070866);
+createMarker(Kaferang, 59.32343754999999, 18.06);*/
+
+Stadsbiblioteket = new google.maps.LatLng(59.3434, 18.0548);
+addMarker(Stadsbiblioteket, "Stadsbiblioteket");
+ChaTalk = new google.maps.LatLng(59.34037, 18.057978);
+addMarker(ChaTalk, "Chatalk");
+Nymble = new google.maps.LatLng(59.34721, 18.070866);
+addMarker(Nymble, "Nymble");
+Kaferang = new google.maps.LatLng(59.32343754999999, 18.06);
+addMarker(Kaferang, "Kaferang");
 
 var InfoContent =
 '<div id="content">' +
