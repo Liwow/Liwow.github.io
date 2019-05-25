@@ -1,7 +1,7 @@
 var map, infoWindow;
 var icon = "marker.png";
 var pos;
-var InfoContent;
+
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -39,7 +39,7 @@ function initMap() {
     infoWindow.open(map);
   }
 
-  function distFrom(lat1, lon1, lat2, lon2) {       //DISTANCE
+  function distFrom(lat1, lon1, lat2, lon2) {
     console.log("pos 1: " + lat1 + " " + lon1); 
     console.log("pos 2: " + lat2 + " " + lon2);
     var R = 6371; // Radius of the earth in km
@@ -61,15 +61,13 @@ function initMap() {
         map: map,
         icon: icon,
         title: titel,
-        //distance: distFrom(location.lat(), location.lng(), pos.lat, pos.lng)
     });
-    //fillInfoContent(marker);
     marker.addListener("click", function() {
       map.setZoom(16);
       map.setCenter(this.getPosition(location));
       markerClick.open(map, this);
 
-       //DISTANCE
+      distFrom(location.lat(), location.lng(), pos.lat, pos.lng);
     });
 }
 
@@ -82,18 +80,13 @@ addMarker(Nymble);
 Kaferang = new google.maps.LatLng(59.32343754999999, 18.06, '4');
 addMarker(Kaferang);
 
-function fillInfoContent(marker){
-  InfoContent =
+var InfoContent =
 '<div id="content">' +
 '<div id="siteNotice">' +
 "</div>" +
 '<div id="bodyContent">' +
-"<p><b>" + toString(marker) + toString(marker.distance) + "</b></p>" +
+"<p><b>Koppla till onsen card somehow, visa info</b></p>" +
 "</div>";
-}
-
-
-
 
 var markerClick = new google.maps.InfoWindow({
 content: InfoContent
