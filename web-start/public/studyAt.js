@@ -1,5 +1,7 @@
 var map, infoWindow;
 var icon = "marker.png";
+var pos;
+var InfoContent;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -11,7 +13,7 @@ function initMap() {
   infoWindow = new google.maps.InfoWindow();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
+      pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
@@ -37,33 +39,37 @@ function initMap() {
     infoWindow.open(map);
   }
 
-  function distFrom(lat1, lng1, lat2, lng2) {
-    var earthRadius = 3958.75;
-    var dLat = Math.toRadians(lat2-lat1);
-    var dLng = Math.toRadians(lng2-lng1);
-    var sindLat = Math.sin(dLat / 2);
-    var sindLng = Math.sin(dLng / 2);
-    var a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var dist = earthRadius * c;
-    console.log("distance" + dist);
+  function distFrom(lat1, lon1, lat2, lon2) {       //DISTANCE
+    console.log("pos 1: " + lat1 + " " + lon1); 
+    console.log("pos 2: " + lat2 + " " + lon2);
+    var R = 6371; // Radius of the earth in km
+    var dLat = (lat2 - lat1) * Math.PI / 180;  // deg2rad below
+    var dLon = (lon2 - lon1) * Math.PI / 180;
+     var a = 
+        0.5 - Math.cos(dLat)/2 + 
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        (1 - Math.cos(dLon))/2;
+    dist = Math.round((R * 2 * Math.asin(Math.sqrt(a))) * 1000) / 1000;
+    console.log("distance : " + dist + " km");
     return dist;
     }
 
   function addMarker(location, titel) {
-    console.log("location " + location);
+
     marker = new google.maps.Marker({
         position: location,
         map: map,
         icon: icon,
         title: titel,
+        //distance: distFrom(location.lat(), location.lng(), pos.lat, pos.lng)
     });
-    console.log("titel1: " + marker.titel + " " + this.titel);
+    //fillInfoContent(marker);
     marker.addListener("click", function() {
       map.setZoom(16);
       map.setCenter(this.getPosition(location));
       markerClick.open(map, this);
-      console.log("titel: " + marker.titel + " " + this.titel);
+
+       //DISTANCE
     });
 }
 
@@ -76,13 +82,17 @@ addMarker(Nymble);
 Kaferang = new google.maps.LatLng(59.32343754999999, 18.06, '4');
 addMarker(Kaferang);
 
-var InfoContent =
+function fillInfoContent(marker){
+  InfoContent =
 '<div id="content">' +
 '<div id="siteNotice">' +
 "</div>" +
 '<div id="bodyContent">' +
-"<p><b>Koppla till onsen card somehow, visa info</b></p>" +
+"<p><b>" + toString(marker) + toString(marker.distance) + "</b></p>" +
 "</div>";
+}
+
+
 
 
 var markerClick = new google.maps.InfoWindow({
