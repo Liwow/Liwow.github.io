@@ -1,5 +1,7 @@
 var map, infoWindow;
 var icon = "marker.png";
+var pos;
+
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -10,22 +12,19 @@ function initMap() {
   });
   infoWindow = new google.maps.InfoWindow();
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function(position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
+    navigator.geolocation.getCurrentPosition(function(position) {
+      pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
 
-        infoWindow.setPosition(pos);
-        infoWindow.setContent("Enemy spotted.");
-        infoWindow.open(map);
-        map.setCenter(pos);
-      },
-      function() {
-        handleLocationError(true, infoWindow, map.getCenter());
-      }
-    );
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Enemy spotted.');
+      infoWindow.open(map);
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
   } else {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
@@ -41,39 +40,84 @@ function initMap() {
     infoWindow.open(map);
   }
 
-  function distFrom(lat1, lng1, lat2, lng2) {
-    var earthRadius = 3958.75;
-    var dLat = Math.toRadians(lat2 - lat1);
-    var dLng = Math.toRadians(lng2 - lng1);
-    var sindLat = Math.sin(dLat / 2);
-    var sindLng = Math.sin(dLng / 2);
-    var a =
-      Math.pow(sindLat, 2) +
-      Math.pow(sindLng, 2) *
-        Math.cos(Math.toRadians(lat1)) *
-        Math.cos(Math.toRadians(lat2));
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var dist = earthRadius * c;
-    console.log("distance" + dist);
+  function distFrom(lat1, lon1, lat2, lon2) {
+    console.log("pos 1: " + lat1 + " " + lon1); 
+    console.log("pos 2: " + lat2 + " " + lon2);
+    var R = 6371; // Radius of the earth in km
+    var dLat = (lat2 - lat1) * Math.PI / 180;  // deg2rad below
+    var dLon = (lon2 - lon1) * Math.PI / 180;
+     var a = 
+        0.5 - Math.cos(dLat)/2 + 
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        (1 - Math.cos(dLon))/2;
+    dist = Math.round((R * 2 * Math.asin(Math.sqrt(a))) * 1000) / 1000;
+    console.log("distance : " + dist + " km");
     return dist;
   }
 
   function addMarker(location, titel) {
-    console.log("location " + location);
+
     marker = new google.maps.Marker({
       position: location,
       map: map,
       icon: icon,
       title: titel
     });
-    console.log("titel1: " + marker.titel + " " + this.titel);
     marker.addListener("click", function() {
       map.setZoom(16);
       map.setCenter(this.getPosition(location));
       markerClick.open(map, this);
-      console.log("titel: " + marker.titel + " " + this.titel);
+
+      distFrom(location.lat(), location.lng(), pos.lat, pos.lng);
     });
-  }
+}
+
+Stadsbiblioteket = new google.maps.LatLng(59.3434, 18.0548, 'aaa');
+addMarker(Stadsbiblioteket);
+ChaTalk = new google.maps.LatLng(59.34037, 18.057978, '2');
+addMarker(ChaTalk);
+Nymble = new google.maps.LatLng(59.34721, 18.070866, '3');
+addMarker(Nymble);
+Kaferang = new google.maps.LatLng(59.32343754999999, 18.06, '4');
+addMarker(Kaferang);
+
+var InfoContent =
+'<div id="content">' +
+'<div id="siteNotice">' +
+"</div>" +
+'<div id="bodyContent">' +
+"<p><b>Koppla till onsen card somehow, visa info</b></p>" +
+"</div>";
+
+var markerClick = new google.maps.InfoWindow({
+content: InfoContent
+});
+
+/*Nymble.addListener("click", function() {
+  map.setZoom(8);
+  map.setCenter(marker.getPosition());
+  stadsClick.open(map, stadsClick);
+});*/
+
+  /*var marker1 = new google.maps.Marker({
+    position: { lat: 59.3434, lng: 18.0548 },
+    map: map,
+    title: "Stadsbiblioteket",
+    icon: icon
+  });
+  marker1.addListener("click", function() {
+    infowindow.open(map, marker1);
+  });
+
+  var marker2 = new google.maps.Marker({
+    position: { lat: 59.34037, lng: 18.057978 },
+    map: map,
+    title: "Cha Talk",
+    icon: icon
+  });
+  marker2.addListener("click", function() {
+    infowindow2.open(map, marker2);
+  });
 
   Stadsbiblioteket = new google.maps.LatLng(59.3434, 18.0548, "aaa");
   addMarker(Stadsbiblioteket, "Stadsbiblioteket");
