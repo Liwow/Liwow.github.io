@@ -1,33 +1,16 @@
-newReview = document.getElementById("reviewSubmit");
-
-function addReview() {
-  alert("hello");
-  const form = event.target.elements;
-  const sDiscount = "";
-  var db = firebase.firestore();
-  if (document.getElementById("studentDiscount").checked) {
-    Sdiscount = "Discount available";
-  } else {
-    sDiscount = "No discount";
-  }
-
+function collectReviews(email) {
   db.collection("users")
-    .add({
-      place: form[0].value,
-      overall: form[1].value,
-      wifi: form[2].value,
-      powerOutlet: form[3].value,
-      soundLevel: form[4].value,
-      prices: form[5].value,
-      food: form[6].value,
-      impression: form[7].value,
-      discount: sDiscount
-    })
-    .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
+    .doc(email)
+    .collection("submissions")
+    .get()
+    .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+      });
     })
     .catch(function(error) {
-      console.error("Error adding document: ", error);
+      console.log("Error getting documents: ", error);
     });
 }
 
