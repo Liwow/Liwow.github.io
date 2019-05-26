@@ -20,7 +20,7 @@ function initMap() {
       };
 
       infoWindow.setPosition(pos);
-      infoWindow.setContent('Enemy spotted.');
+      infoWindow.setContent('You are here');
       infoWindow.open(map);
       map.setCenter(pos);
     }, function() {

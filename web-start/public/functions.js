@@ -30,3 +30,4 @@ document.addEventListener("prechange", function(event) {
     "ons-toolbar .center"
   ).innerHTML = event.tabItem.getAttribute("label");
 });
+
