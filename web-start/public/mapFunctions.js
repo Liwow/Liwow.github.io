@@ -92,14 +92,14 @@ function initMap() {
       map.setCenter(this.getPosition(location));
 
       var InfoContent =
-      '<div id="content">' +
-      '<div id="siteNotice">' +
-      "</div>" +
-      '<div id="bodyContent">' +
-      "<p><b>" + this.title + "</b></p>" +
-      "<p><b>" + "ratings here"+ "</b></p>" +
-      "</div>";
-
+        '<div id="content">' +
+        '<div id="siteNotice">' +
+        "</div>" +
+        '<div id="bodyContent">' +
+        "<p><b>" +
+        this.title +
+        "</b></p>" +
+        "</div>";
 
       var markerClick = new google.maps.InfoWindow({
         content: InfoContent
@@ -138,9 +138,6 @@ createMarker(Kaferang, 59.32343754999999, 18.06);*/
   Kaferang = new google.maps.LatLng(59.32343754999999, 18.06);
   addMarker(Kaferang, "Kaferang");
 
-
-
-
   /*Nymble.addListener("click", function() {
   map.setZoom(8);
   map.setCenter(marker.getPosition());
@@ -166,7 +163,6 @@ createMarker(Kaferang, 59.32343754999999, 18.06);*/
   marker2.addListener("click", function() {
     infowindow2.open(map, marker2);
   });*/
-
 
   function CenterControl(controlDiv, map) {
     // Set CSS for the control border.
