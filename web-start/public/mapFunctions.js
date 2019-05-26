@@ -366,6 +366,7 @@ function generateLocationPage(location) {
       var avgSpan = document.createElement("span");
       avgSpan.setAttribute("id", "avgSpan");
       wrapper.appendChild(avgSpan);
+      avgSpan.innerHTML = "<b>Average Rating: </b>";
 
       var reviewButton = document.createElement("button");
       reviewButton.setAttribute("class", "button");
