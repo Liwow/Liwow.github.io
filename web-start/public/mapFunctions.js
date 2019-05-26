@@ -1,7 +1,12 @@
 var map, infoWindow;
 var icon = "marker.png";
 var pos;
-
+//var placesList = [Stadsbiblioteket, Nymble, Chatalk, Stadsbiblioteket];
+window.onload = function() {
+  loadUser();
+  generateLocationCards();
+  generatePersonalCards();
+};
 
 function exampleCode() {
   var db = firebase.firestore();
@@ -227,20 +232,144 @@ createMarker(Kaferang, 59.32343754999999, 18.06);*/
   }
 }
 
+function distFrom(lat1, lon1, lat2, lon2) {
+  console.log("pos 1: " + lat1 + " " + lon1);
+  console.log("pos 2: " + lat2 + " " + lon2);
+  var R = 6371; // Radius of the earth in km
+  var dLat = ((lat2 - lat1) * Math.PI) / 180; // deg2rad below
+  var dLon = ((lon2 - lon1) * Math.PI) / 180;
+  var a =
+    0.5 -
+    Math.cos(dLat) / 2 +
+    (Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      (1 - Math.cos(dLon))) /
+      2;
+  dist = Math.round(R * 2 * Math.asin(Math.sqrt(a)) * 1000) / 1000;
+  console.log("distance : " + dist + " km");
+  return dist;
+}
+
 function showValue(slider) {
   output = document.getElementById(slider.id + "Output");
   output.innerHTML = slider.value; // Display the default slider value
 }
 
-function generateLocationPage() {
-  console.log("grav");
+function removeDuplicates(myArr, prop) {
+  return myArr.filter((obj, pos, arr) => {
+    return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+  });
+}
+
+function generatePersonalCards() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var db = firebase.firestore();
+
+      // User is signed in.
+      var email = user.email;
+
+      db.collection("submissions")
+        .where("user", "==", email)
+        .get()
+        .then(function(querySnapshot) {
+          var cardSpan = document.getElementById("personalCards");
+          querySnapshot.forEach(function(doc) {
+            console.log(doc.data().place);
+            var onsCard = document.createElement("ons-card");
+            onsCard.setAttribute(
+              "onclick",
+              'generateLocationPage("' + doc.data().place + '")'
+            );
+            var cardTitle = document.createElement("div");
+            cardTitle.setAttribute("class", "title");
+            cardTitle.innerHTML = doc.data().place;
+
+            onsCard.appendChild(cardTitle);
+
+            var cardDistance = document.createElement("div");
+            cardDistance.setAttribute("class", "content");
+            cardDistance.innerHTML =
+              "Distance: " +
+              distFrom(
+                doc.data().latitude,
+                doc.data().longitude,
+                pos.lat,
+                pos.lng
+              );
+            +" km";
+
+            onsCard.appendChild(cardDistance);
+
+            cardSpan.appendChild(onsCard);
+          });
+        });
+    }
+  });
+}
+
+function generateLocationCards() {
+  var db = firebase.firestore();
+  db.collection("submissions")
+    .get()
+    .then(function(querySnapshot) {
+      var allLocations = [];
+      var cardSpan = document.getElementById("submissionCards");
+      querySnapshot.forEach(function(doc) {
+        allLocations.push(doc.data());
+      });
+
+      var filteredArr = allLocations.filter(function(item, pos) {
+        return allLocations.indexOf(item) == pos;
+      });
+
+      var filteredArray = removeDuplicates(filteredArr, "place");
+
+      for (var x in filteredArray) {
+        var onsCard = document.createElement("ons-card");
+        onsCard.setAttribute(
+          "onclick",
+          'generateLocationPage("' + filteredArray[x].place + '")'
+        );
+        var cardTitle = document.createElement("div");
+        cardTitle.setAttribute("class", "title");
+        cardTitle.innerHTML = filteredArray[x].place;
+
+        onsCard.appendChild(cardTitle);
+
+        var cardDistance = document.createElement("div");
+        cardDistance.setAttribute("class", "content");
+        cardDistance.innerHTML =
+          "Distance: " +
+          distFrom(
+            filteredArray[x].latitude,
+            filteredArray[x].longitude,
+            pos.lat,
+            pos.lng
+          );
+        +" km";
+
+        onsCard.appendChild(cardDistance);
+
+        cardSpan.appendChild(onsCard);
+      }
+    });
+}
+
+function generateLocationPage(location) {
   fn.pushPage({ id: "cafe1.html", title: "Cafe 1" });
   var db = firebase.firestore();
   db.collection("submissions")
-    .where("place", "==", "cafe")
+    .where("place", "==", location)
     .get()
     .then(function(querySnapshot) {
+      var allRatings = [];
       var wrapper = document.getElementById("reviews");
+      var avgSpan = document.createElement("span");
+      avgSpan.setAttribute("id", "avgSpan");
+      wrapper.appendChild(avgSpan);
+      avgSpan.innerHTML = "<b>Average Rating: </b>";
+
       var reviewButton = document.createElement("button");
       reviewButton.setAttribute("class", "button");
       reviewButton.innerHTML = "Leave a review";
@@ -248,7 +377,7 @@ function generateLocationPage() {
       wrapper.appendChild(reviewButton);
 
       querySnapshot.forEach(function(doc) {
-        console.log(doc.data());
+        allRatings.push(parseInt(doc.data().overall));
         document.getElementById("location").innerHTML = doc.data().place;
 
         reviewButton.setAttribute(
@@ -256,11 +385,13 @@ function generateLocationPage() {
           'reviewExistingLocation("' + doc.data().place + '")'
         );
 
+        var overallStar = doc.data().overall;
         var wifiStar = doc.data().wifi;
         var powerStar = doc.data().powerOutlet;
         var soundStar = doc.data().soundLevel;
         var priceStar = doc.data().prices;
 
+        var overallEmptyStar = 5 - overallStar;
         var wifiEmptyStar = 5 - wifiStar;
         var powerEmptyStar = 5 - powerStar;
         var soundEmptyStar = 5 - soundStar;
@@ -268,6 +399,22 @@ function generateLocationPage() {
 
         var reviewDiv = document.createElement("div");
         reviewDiv.setAttribute("class", "reviewDiv");
+
+        var overallElement = document.createElement("div");
+        overallElement.setAttribute("id", "overallStar");
+        overallElement.innerHTML = "Overall rating: ";
+
+        for (var i = 0; i < overallStar; i++) {
+          var fullStar = document.createElement("span");
+          fullStar.setAttribute("class", "fa fa-star checked");
+          overallElement.appendChild(fullStar);
+        }
+
+        for (var i = 0; i < overallEmptyStar; i++) {
+          var emptyStar = document.createElement("span");
+          emptyStar.setAttribute("class", "fa fa-star");
+          overallElement.appendChild(emptyStar);
+        }
 
         var wifiElement = document.createElement("div");
         wifiElement.setAttribute("id", "wifiStar");
@@ -339,6 +486,7 @@ function generateLocationPage() {
         general.innerHTML =
           "<b>General impression: </b>" + doc.data().impression;
 
+        reviewDiv.appendChild(overallElement);
         reviewDiv.appendChild(wifiElement);
         reviewDiv.appendChild(powerElement);
         reviewDiv.appendChild(soundElement);
@@ -348,5 +496,27 @@ function generateLocationPage() {
 
         wrapper.appendChild(reviewDiv);
       });
+      var tot = 0;
+      for (var i in allRatings) {
+        tot += allRatings[i];
+      }
+      console.log(allRatings);
+      console.log(tot);
+
+      var avg = Math.round(tot / allRatings.length);
+
+      console.log(avg);
+
+      for (var i = 0; i < avg; i++) {
+        var fullStar = document.createElement("span");
+        fullStar.setAttribute("class", "fa fa-star checked");
+        avgSpan.appendChild(fullStar);
+      }
+
+      for (var i = 0; i < 5 - avg; i++) {
+        var emptyStar = document.createElement("span");
+        emptyStar.setAttribute("class", "fa fa-star");
+        avgSpan.appendChild(emptyStar);
+      }
     });
 }

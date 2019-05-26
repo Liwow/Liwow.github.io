@@ -23,8 +23,6 @@
     <script type="text/javascript" src="mapFunctions.js"></script>
     <script type="text/javascript" src="firebaseFunctions.js"></script>
     <script type="text/javascript" src="initFirebase.js"></script>
-    
-
 
     <meta name="viewport" content="initial-scale=1.0" />
     <meta charset="utf-8" />
@@ -35,7 +33,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <body id="col" onload="loadUser()">
+  <body id="col">
     <ons-navigator
       swipeable
       id="myNavigator"
@@ -45,6 +43,7 @@
     <template id="page1.html">
       <ons-page>
         <div id="map"></div>
+
         <button
           class="button"
           onclick="fn.pushPage({'id': 'createReview.html', 'title': 'Cafe 1'})"
@@ -52,27 +51,6 @@
           Create review
         </button>
         <span id="submissionCards"></span>
-        <ons-card
-          id="cardstyle1"
-          onclick="fn.pushPage({'id': 'cafe1.html', 'title': 'Cafe 1'})"
-        >
-          <div class="title">Cafe 1</div>
-          <div class="content">
-            Distance
-          </div>
-        </ons-card>
-        <ons-card id="cardstyle2">
-          <div class="title">Cafe 2</div>
-          <div class="content">
-            Distance
-          </div>
-        </ons-card>
-        <ons-card id="cardstyle3">
-          <div class="title">Cafe 3</div>
-          <div class="content">
-            Distance
-          </div>
-        </ons-card>
       </ons-page>
     </template>
 
@@ -86,7 +64,7 @@
             active
           ></ons-tab>
           <ons-tab
-            label="Favourite places"
+            label="Your Reviews"
             icon="ion-star"
             page="favourites.html"
           ></ons-tab>
@@ -101,28 +79,7 @@
 
     <template id="favourites.html">
       <ons-page id="col">
-          <button class="button">View your reviews</button>
-        <ons-card
-          id="cardstyle1"
-          onclick="generateLocationPage()"
-        >
-          <div class="title">Cafe 1</div>
-          <div class="content">
-            Distance
-          </div>
-        </ons-card>
-        <ons-card id="cardstyle2">
-          <div class="title">Cafe 2</div>
-          <div class="content">
-            Distance
-          </div>
-        </ons-card>
-        <ons-card id="cardstyle3">
-          <div class="title">Cafe 3</div>
-          <div class="content">
-            Distance
-          </div>
-        </ons-card>
+        <span id="personalCards"></span>
       </ons-page>
     </template>
     <script src="/__/firebase/6.0.2/firebase-app.js"></script>
@@ -149,22 +106,6 @@
         </div>
       </ons-page>
     </template>
-        <img
-          id="profilePicture"
-          src="https://img.apmcdn.org/768cb350c59023919f564341090e3eea4970388c/normal/5034f3-20180309-rick-astley.jpg"
-          alt="profilePic"
-          height="200px"
-          width="200px"
-        />
-        <p><b>Name: </b> <input type="text" id="userName" /> </p>
-        <p><b>E-mail: </b><span id="emailadress"></span></p>
-        <p><b>Rated places: </b>1</p>
-        <div id="userButtons">
-          <button class="button" onclick="exampleCode()">Edit your profile</button> </br> </br>
-          <button class="button" onclick="signOut()">Sign out</button>
-        </div>
-      </ons-page>
-    </template>
 
     <template id="cafe1.html" onload="generateLocationPage()">
       <ons-page id="col">
@@ -175,24 +116,29 @@
           <div class="center"></div>
         </ons-toolbar>
 
-  <h3 id="location">Cafe 1</h3>
-      <div id="reviews"></div>
+        <h3 id="location">Cafe 1</h3>
+        <div id="reviews"></div>
         <script>
-        function reviewExistingLocation(location) {
-          var db = firebase.firestore();
-          fn.pushPage({'id': 'createReview.html', 'title': "create review"})
-          db.collection("submissions").where("place", "==", location)
-            .get()
-            .then(function(querySnapshot) {
-              querySnapshot.forEach(function(doc) {
-                document.getElementById("locationName").value = doc.data().place
-                document.getElementById("latitudeInput").value = doc.data().latitude
-                document.getElementById("longitudeInput").value = doc.data().longitude
-
+          function reviewExistingLocation(location) {
+            var db = firebase.firestore();
+            fn.pushPage({ id: "createReview.html", title: "create review" });
+            db.collection("submissions")
+              .where("place", "==", location)
+              .get()
+              .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                  document.getElementById(
+                    "locationName"
+                  ).value = doc.data().place;
+                  document.getElementById(
+                    "latitudeInput"
+                  ).value = doc.data().latitude;
+                  document.getElementById(
+                    "longitudeInput"
+                  ).value = doc.data().longitude;
+                });
               });
-            });
-          
-        }
+          }
         </script>
       </ons-page>
     </template>
@@ -205,112 +151,142 @@
         </ons-toolbar>
 
         <div id="reviewDiv">
-        <form onsubmit="return addReview()" id="reviewSubmit">
-          <input id="locationName" type="text" placeholder="My Location" required />
-          <br />
-          <p>
-            <b>Overall rating:<span class="sliderOutput" id="overallOutput">1</span></b>
-          </p>
-          
-          <input
-            type="range"
-            min="1"
-            max="5"
-            value="1"
-            class="slider"
-            id="overall"
-            oninput="showValue(this)"
-          />
-          <p>
-            <b>WIFI:<span class="sliderOutput" id="wifiOutput">1</span></b>
-          </p>
-          <input
-            type="range"
-            min="1"
-            max="5"
-            value="1"
-            class="slider"
-            id="wifi"
-            oninput="showValue(this)"
-          />
-          <p>
-            <b>Power outlet:<span class="sliderOutput" id="powerOutput">1</span></b>
-          </p>
-          <input
-            type="range"
-            min="1"
-            max="5"
-            value="1"
-            class="slider"
-            id="power"
-            oninput="showValue(this)"
-          />
-          <p>
-            <b>Sound level:<span class="sliderOutput" id="soundOutput">1</span></b>
-          </p>
-          <input
-            type="range"
-            min="1"
-            max="5"
-            value="1"
-            class="slider"
-            id="sound"
-            oninput="showValue(this)"
-          />
-          <br />
-          <p>
-            <b>Good prices:<span class="sliderOutput" id="priceOutput">1</span></b>
-          </p>
-          <input
-            type="range"
-            min="1"
-            max="5"
-            value="1"
-            class="slider"
-            id="price"
-            oninput="showValue(this)"
-          />
-          <br />
-          <p><b>Food available:</b></p>
-          <textarea
-            style="resize: none;"
-            cols="40"
-            rows="5"
-            class="textinput"
-            placeholder="None, only sandwitches..."
-            required
-          ></textarea>
-          <p><b>General impression:</b></p>
-          <textarea
-            style="resize: none;"
-            cols="40"
-            rows="5"
-            class="textinput"
-            placeholder="A little too noisy, great staff..."
-         required ></textarea>
-          <p>
-            <b>Student discount:</b>
+          <form onsubmit="return addReview()" id="reviewSubmit">
             <input
-            id="studentDiscount"
-              class="checkbox"
-              type="checkbox"
-              name="studentDiscount"
-              value="discountAvailable"
+              id="locationName"
+              type="text"
+              placeholder="My Location"
+              required
             />
-          </p>
-          <button type="button" class="button" onclick="getCurrentPosition()">Get my coordinations</button>
-          <input id="latitudeInput" type="text" placeholder="Latitude" required />
-          <input id="longitudeInput" type="text" placeholder="Longitude" required />
-        
-          <button
-            class="button"
-            type="submit"
-          >
-            Submit review
-          </button>
-        </form>
-      </div>
-        
+            <br />
+            <p>
+              <b
+                >Overall rating:<span class="sliderOutput" id="overallOutput"
+                  >1</span
+                ></b
+              >
+            </p>
+
+            <input
+              type="range"
+              min="1"
+              max="5"
+              value="1"
+              class="slider"
+              id="overall"
+              oninput="showValue(this)"
+            />
+            <p>
+              <b>WIFI:<span class="sliderOutput" id="wifiOutput">1</span></b>
+            </p>
+            <input
+              type="range"
+              min="1"
+              max="5"
+              value="1"
+              class="slider"
+              id="wifi"
+              oninput="showValue(this)"
+            />
+            <p>
+              <b
+                >Power outlet:<span class="sliderOutput" id="powerOutput"
+                  >1</span
+                ></b
+              >
+            </p>
+            <input
+              type="range"
+              min="1"
+              max="5"
+              value="1"
+              class="slider"
+              id="power"
+              oninput="showValue(this)"
+            />
+            <p>
+              <b
+                >Sound level:<span class="sliderOutput" id="soundOutput"
+                  >1</span
+                ></b
+              >
+            </p>
+            <input
+              type="range"
+              min="1"
+              max="5"
+              value="1"
+              class="slider"
+              id="sound"
+              oninput="showValue(this)"
+            />
+            <br />
+            <p>
+              <b
+                >Good prices:<span class="sliderOutput" id="priceOutput"
+                  >1</span
+                ></b
+              >
+            </p>
+            <input
+              type="range"
+              min="1"
+              max="5"
+              value="1"
+              class="slider"
+              id="price"
+              oninput="showValue(this)"
+            />
+            <br />
+            <p><b>Food available:</b></p>
+            <textarea
+              style="resize: none;"
+              cols="40"
+              rows="5"
+              class="textinput"
+              placeholder="None, only sandwiches..."
+              required
+            ></textarea>
+            <p><b>General impression:</b></p>
+            <textarea
+              style="resize: none;"
+              cols="40"
+              rows="5"
+              class="textinput"
+              placeholder="A little too noisy, great staff..."
+              required
+            ></textarea>
+            <p>
+              <b>Student discount:</b>
+              <input
+                id="studentDiscount"
+                class="checkbox"
+                type="checkbox"
+                name="studentDiscount"
+                value="discountAvailable"
+              />
+            </p>
+            <button type="button" class="button" onclick="getCurrentPosition()">
+              Get my coordinations
+            </button>
+            <input
+              id="latitudeInput"
+              type="text"
+              placeholder="Latitude"
+              required
+            />
+            <input
+              id="longitudeInput"
+              type="text"
+              placeholder="Longitude"
+              required
+            />
+
+            <button class="button" type="submit">
+              Submit review
+            </button>
+          </form>
+        </div>
       </ons-page>
     </template>
 
@@ -320,65 +296,68 @@
       }
     </style>
     <script>
-    var pos;
-    function getCurrentPosition() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-        }, function() {
-          handleLocationError(true, infoWindow, map.getCenter());
-        });
-      } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+      var pos;
+      function getCurrentPosition() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            function(position) {
+              pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+            },
+            function() {
+              handleLocationError(true, infoWindow, map.getCenter());
+            }
+          );
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+        document.getElementById("latitudeInput").value = pos.lat;
+        document.getElementById("longitudeInput").value = pos.lng;
       }
-      document.getElementById("latitudeInput").value = pos.lat
-      document.getElementById("longitudeInput").value = pos.lng
-    }
-    function addReview() {
-      event.preventDefault();
-      
+      function addReview() {
+        event.preventDefault();
 
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-          var email = user.email;
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            // User is signed in.
+            var email = user.email;
           }
 
-      var form = event.target.elements;
-      var sDiscount = "";
-      var db = firebase.firestore();
-      if (document.getElementById("studentDiscount").checked == true) {
-        sDiscount = "Discount available";
-      } else {
-        sDiscount = "No discount";
-      }
+          var form = event.target.elements;
+          var sDiscount = "";
+          var db = firebase.firestore();
+          if (document.getElementById("studentDiscount").checked == true) {
+            sDiscount = "Discount available";
+          } else {
+            sDiscount = "No discount";
+          }
 
-      db.collection("submissions").add({
-        place: form[0].value,
-        overall: form[1].value,
-        wifi: form[2].value,
-        powerOutlet: form[3].value,
-        soundLevel: form[4].value,
-        prices: form[5].value,
-        food: form[6].value,
-        impression: form[7].value,
-        discount: sDiscount,
-        user: email,
-        latitude: form[10].value,
-        longitude: form[11].value
-      })
-      .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-        console.error("Error adding document: ", error);
-      });
-    })
-  }
+          db.collection("submissions")
+            .add({
+              place: form[0].value,
+              overall: form[1].value,
+              wifi: form[2].value,
+              powerOutlet: form[3].value,
+              soundLevel: form[4].value,
+              prices: form[5].value,
+              food: form[6].value,
+              impression: form[7].value,
+              discount: sDiscount,
+              user: email,
+              latitude: form[10].value,
+              longitude: form[11].value
+            })
+            .then(function(docRef) {
+              console.log("Document written with ID: ", docRef.id);
+            })
+            .catch(function(error) {
+              console.error("Error adding document: ", error);
+            });
+        });
+      }
     </script>
 
     <script
