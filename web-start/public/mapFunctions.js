@@ -1,7 +1,7 @@
 var map, infoWindow;
 var icon = "marker.png";
 var pos;
-//var placesList = [Stadsbiblioteket, Nymble, Chatalk, Stadsbiblioteket];
+
 
 function exampleCode() {
   var db = firebase.firestore();
@@ -75,6 +75,7 @@ function initMap() {
   }
 
   function addMarker(location, titel) {
+    console.log(pos);
     marker = new google.maps.Marker({
       position: location,
       map: map,
@@ -84,8 +85,21 @@ function initMap() {
     marker.addListener("click", function() {
       map.setZoom(16);
       map.setCenter(this.getPosition(location));
-      markerClick.open(map, this);
 
+      var InfoContent =
+      '<div id="content">' +
+      '<div id="siteNotice">' +
+      "</div>" +
+      '<div id="bodyContent">' +
+      "<p><b>" + this.title + "</b></p>" +
+      "<p><b>" + "ratings here"+ "</b></p>" +
+      "</div>";
+
+
+      var markerClick = new google.maps.InfoWindow({
+        content: InfoContent
+      });
+      markerClick.open(map, this);
       distFrom(location.lat(), location.lng(), pos.lat, pos.lng);
     });
   }
@@ -119,17 +133,8 @@ createMarker(Kaferang, 59.32343754999999, 18.06);*/
   Kaferang = new google.maps.LatLng(59.32343754999999, 18.06);
   addMarker(Kaferang, "Kaferang");
 
-  var InfoContent =
-    '<div id="content">' +
-    '<div id="siteNotice">' +
-    "</div>" +
-    '<div id="bodyContent">' +
-    "<p><b>Koppla till onsen card somehow, visa info</b></p>" +
-    "</div>";
 
-  var markerClick = new google.maps.InfoWindow({
-    content: InfoContent
-  });
+
 
   /*Nymble.addListener("click", function() {
   map.setZoom(8);
@@ -157,9 +162,6 @@ createMarker(Kaferang, 59.32343754999999, 18.06);*/
     infowindow2.open(map, marker2);
   });*/
 
-  var markerClick = new google.maps.InfoWindow({
-    content: InfoContent
-  });
 
   function CenterControl(controlDiv, map) {
     // Set CSS for the control border.
