@@ -173,6 +173,7 @@ ons-tab {
 .reviewDiv {
   margin: 10px;
   padding-top: 10px;
+  padding-right: 5px;
   border-style: solid;
   border-color: rgb(189, 168, 248);
   border-width: 3px;
