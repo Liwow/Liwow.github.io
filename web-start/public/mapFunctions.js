@@ -383,7 +383,7 @@ function generateLocationPage(location) {
         var soundStar = doc.data().soundLevel;
         var priceStar = doc.data().prices;
 
-        var overallEmptyStar = 5 - wifiStar;
+        var overallEmptyStar = 5 - overallStar;
         var wifiEmptyStar = 5 - wifiStar;
         var powerEmptyStar = 5 - powerStar;
         var soundEmptyStar = 5 - soundStar;
