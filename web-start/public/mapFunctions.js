@@ -361,7 +361,12 @@ function generateLocationPage(location) {
     .where("place", "==", location)
     .get()
     .then(function(querySnapshot) {
+      var allRatings = [];
       var wrapper = document.getElementById("reviews");
+      var avgSpan = document.createElement("span");
+      avgSpan.setAttribute("id", "avgSpan");
+      wrapper.appendChild(avgSpan);
+
       var reviewButton = document.createElement("button");
       reviewButton.setAttribute("class", "button");
       reviewButton.innerHTML = "Leave a review";
@@ -369,7 +374,7 @@ function generateLocationPage(location) {
       wrapper.appendChild(reviewButton);
 
       querySnapshot.forEach(function(doc) {
-        console.log(doc.data());
+        allRatings.push(parseInt(doc.data().overall));
         document.getElementById("location").innerHTML = doc.data().place;
 
         reviewButton.setAttribute(
@@ -488,5 +493,27 @@ function generateLocationPage(location) {
 
         wrapper.appendChild(reviewDiv);
       });
+      var tot = 0;
+      for (var i in allRatings) {
+        tot += allRatings[i];
+      }
+      console.log(allRatings);
+      console.log(tot);
+
+      var avg = Math.round(tot / allRatings.length);
+
+      console.log(avg);
+
+      for (var i = 0; i < avg; i++) {
+        var fullStar = document.createElement("span");
+        fullStar.setAttribute("class", "fa fa-star checked");
+        avgSpan.appendChild(fullStar);
+      }
+
+      for (var i = 0; i < 5 - avg; i++) {
+        var emptyStar = document.createElement("span");
+        emptyStar.setAttribute("class", "fa fa-star");
+        avgSpan.appendChild(emptyStar);
+      }
     });
 }
