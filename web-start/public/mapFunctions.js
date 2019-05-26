@@ -5,6 +5,7 @@ var pos;
 window.onload = function() {
   loadUser();
   generateLocationCards();
+  generatePersonalCards();
 };
 
 function exampleCode() {
@@ -255,6 +256,53 @@ function showValue(slider) {
 function removeDuplicates(myArr, prop) {
   return myArr.filter((obj, pos, arr) => {
     return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+  });
+}
+
+function generatePersonalCards() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var db = firebase.firestore();
+
+      // User is signed in.
+      var email = user.email;
+
+      db.collection("submissions")
+        .where("user", "==", email)
+        .get()
+        .then(function(querySnapshot) {
+          var cardSpan = document.getElementById("personalCards");
+          querySnapshot.forEach(function(doc) {
+            console.log(doc.data().place);
+            var onsCard = document.createElement("ons-card");
+            onsCard.setAttribute(
+              "onclick",
+              'generateLocationPage("' + doc.data().place + '")'
+            );
+            var cardTitle = document.createElement("div");
+            cardTitle.setAttribute("class", "title");
+            cardTitle.innerHTML = doc.data().place;
+
+            onsCard.appendChild(cardTitle);
+
+            var cardDistance = document.createElement("div");
+            cardDistance.setAttribute("class", "content");
+            cardDistance.innerHTML =
+              "Distance: " +
+              distFrom(
+                doc.data().latitude,
+                doc.data().longitude,
+                pos.lat,
+                pos.lng
+              );
+            +" km";
+
+            onsCard.appendChild(cardDistance);
+
+            cardSpan.appendChild(onsCard);
+          });
+        });
+    }
   });
 }
 
