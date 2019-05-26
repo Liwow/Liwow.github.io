@@ -171,8 +171,9 @@ ons-tab {
 }
 
 .reviewDiv {
+  margin: 10px;
   padding-top: 10px;
   border-style: solid;
-  border-color: black;
-  border-width: 4px;
+  border-color: rgb(189, 168, 248);
+  border-width: 3px;
 }
