@@ -276,6 +276,9 @@ function generatePersonalCards() {
               "onclick",
               'generateLocationPage("' + doc.data().place + '")'
             );
+
+            onsCard.className += "colourCard";
+
             var cardTitle = document.createElement("div");
             cardTitle.setAttribute("class", "title");
             cardTitle.innerHTML = doc.data().place;
@@ -327,7 +330,7 @@ function generateLocationCards() {
           'generateLocationPage("' + filteredArray[x].place + '")'
         );
         onsCard.className += "colourCard";
-        console.log(onsCard)
+        console.log(onsCard);
         var cardTitle = document.createElement("div");
         cardTitle.setAttribute("class", "title");
         cardTitle.innerHTML = filteredArray[x].place;

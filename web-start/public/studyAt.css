@@ -75,11 +75,11 @@ ons-card {
   background: rgb(248, 168, 217);
 }
 
-#cardstyle2 {
+.colourCard {
   background: rgb(225, 168, 248);
 }
 
-#card {
+#colourCard {
   background: rgb(189, 168, 248);
 }
 
