@@ -229,8 +229,8 @@ createMarker(Kaferang, 59.32343754999999, 18.06);*/
 }
 
 function distFrom(lat1, lon1, lat2, lon2) {
-  console.log("pos 1: " + lat1 + " " + lon1);
-  console.log("pos 2: " + lat2 + " " + lon2);
+  /*console.log("pos 1: " + lat1 + " " + lon1);
+  console.log("pos 2: " + lat2 + " " + lon2);*/
   var R = 6371; // Radius of the earth in km
   var dLat = ((lat2 - lat1) * Math.PI) / 180; // deg2rad below
   var dLon = ((lon2 - lon1) * Math.PI) / 180;
@@ -271,7 +271,6 @@ function generatePersonalCards() {
         .then(function(querySnapshot) {
           var cardSpan = document.getElementById("personalCards");
           querySnapshot.forEach(function(doc) {
-            console.log(doc.data().place);
             var onsCard = document.createElement("ons-card");
             onsCard.setAttribute(
               "onclick",
@@ -327,6 +326,8 @@ function generateLocationCards() {
           "onclick",
           'generateLocationPage("' + filteredArray[x].place + '")'
         );
+        onsCard.className += "colourCard";
+        console.log(onsCard)
         var cardTitle = document.createElement("div");
         cardTitle.setAttribute("class", "title");
         cardTitle.innerHTML = filteredArray[x].place;
